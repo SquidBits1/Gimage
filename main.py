@@ -6,6 +6,16 @@ img = Image.open('Bamburgh_Castle,_beautiful_day.jpg')
 img_a = np.array(img)
 
 
+# def sort_image(image):
+#     summed = np.sum(image, axis=2)
+#     indexes = np.argmin(summed, axis=1)
+#     grid = np.zeros_like(summed)
+#     print(indexes)
+#
+#     sorted_section = np.argsort(summed[:, indexes], axis=1)
+#     print(sorted_section.shape)
+
+
 def sort_row(row):
     # sums all the pixel values to find a basic pixel "brightness" value
     summed = np.sum(row[:, :4], axis=1)
@@ -31,9 +41,12 @@ def pixelsort(image, column=False):
     return new_array
 
 
-column = True
-img_b = pixelsort(img_a, column=column)
-if column:
-    img_b = np.rot90(img_b, k=3)
-img_b = Image.fromarray(img_b)
-img_b.save('sorted.jpg')
+# column = True
+# img_b = pixelsort(img_a, column=column)
+# if column:
+#     img_b = np.rot90(img_b, k=3)
+# img_b = Image.fromarray(img_b)
+# img_b.save('sorted.jpg')
+
+
+sort_image(img_a)
