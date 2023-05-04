@@ -1,23 +1,11 @@
 from PIL import Image
 import numpy as np
 
-img = Image.open('Bamburgh_Castle,_beautiful_day.jpg')
+from sorting_functions import *
+
+img = Image.open("C:/Users/gilsmi0809/PycharmProjects/pixel_sorting/Bamburgh_Castle,_beautiful_day.jpg")
 
 img_a = np.array(img)
-
-
-def luminance(row):
-    temp = np.zeros_like(row)
-    temp[:, 0] = row[:, 0] * 0.2126
-    temp[:, 1] = row[:, 1] * 0.7152
-    temp[:, 2] = row[:, 2] * 0.0722
-    return np.sum(temp, axis=1)
-
-    # TODO convert luminance back to rgb
-
-
-def sum(row):
-    return np.sum(row, axis=1)
 
 
 def sort_row(row, sorting_function):
@@ -33,7 +21,7 @@ def sort_row(row, sorting_function):
     return final_arr
 
 
-def pixelsort(image, rotation=0, sorting_func=sum):
+def pixelsort(image, rotation=0, sorting_func=luminance):
     # rotates image by value given
     image = np.rot90(image, k=rotation)
     new_array = np.empty_like(image)
@@ -46,6 +34,6 @@ def pixelsort(image, rotation=0, sorting_func=sum):
     return new_array
 
 
-img_b = pixelsort(img_a, 2, sum)
+img_b = pixelsort(img_a, 3)
 img_b = Image.fromarray(img_b)
 img_b.save('sorted.jpg')
