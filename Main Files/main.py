@@ -3,7 +3,7 @@ import numpy as np
 
 from sorting_functions import *
 
-img = Image.open("C:/Users/gilsmi0809/PycharmProjects/pixel_sorting/Bamburgh_Castle,_beautiful_day.jpg")
+img = Image.open("Bamburgh_Castle,_beautiful_day.jpg")
 
 img_a = np.array(img)
 
@@ -34,6 +34,6 @@ def pixelsort(image, rotation=0, sorting_func=luminance):
     return new_array
 
 
-img_b = pixelsort(img_a, 3)
+img_b = pixelsort(img_a, 0)
 img_b = Image.fromarray(img_b)
 img_b.save('sorted.jpg')

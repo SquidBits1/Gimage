@@ -9,6 +9,5 @@ def luminance(row):
     return np.sum(temp, axis=1)
 
 
-
 def basic_sum(row):
     return np.sum(row, axis=1)
