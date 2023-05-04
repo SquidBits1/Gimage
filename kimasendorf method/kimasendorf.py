@@ -15,3 +15,9 @@ a = lambda row: np.convolve(row, [-1, 1], 'same')
 
 edges = np.apply_along_axis(a,0,full_mask)
 
+intervals = [np.flatnonzero(row) for row in edges]
+
+for row, key in enumerate(full_mask):
+    order = np.split(key, intervals[row])
+    if row == 0:
+        print(order)
