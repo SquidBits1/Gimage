@@ -6,34 +6,45 @@ img = Image.open('WIN_20230504_11_24_30_Pro.jpg')
 img_a = np.array(img)
 
 
-def sort_row(row, sorting_function=np.sum):
+def luminance(row):
+    row[:, 0] = row[:, 0] * 0.2126
+    row[:, 1] = row[:, 1] * 0.7152
+    row[:, 2] = row[:, 2] * 0.0722
+    return np.sum(row, axis=1)
+
+    # TODO convert luminance back to rgb
+
+
+def sum(row):
+    return np.sum(row, axis=1)
+
+
+def sort_row(row, sorting_function):
     # sums all the pixel values to find a basic pixel "brightness" value
-    summed = sorting_function(row[:, :4], axis=1)
+    summed = sorting_function(row[:, :4])
     min_index = np.argmin(summed)
 
     # sorts the row up to min_index
-    sorted_section = np.argsort(row[:min_index + 1].sorting_function(axis=1))
+    summed_section = sorting_function(row[:min_index + 1])
+    sorted_section = np.argsort(summed_section)
     # creates the final array by concatenating the new section with the old section
     final_arr = np.concatenate((row[:min_index + 1][sorted_section], row[min_index + 1:]), axis=0)
     return final_arr
 
 
-test = sort_row(img_a[0])
-
-
-def pixelsort(image, column=False):
-    if column:
-        image = np.rot90(image)
+def pixelsort(image, rotation=0, sorting_func=sum):
+    # rotates image by value given
+    image = np.rot90(image, k=rotation)
     new_array = np.empty_like(image)
     for i, column in enumerate(image):
-        new_array[i] = sort_row(column)
+        new_array[i] = sort_row(column, sorting_func)
+
+    # undoes rotation image
+    new_array = np.rot90(new_array, k=4 - rotation)
 
     return new_array
 
 
-column = True
-img_b = pixelsort(img_a, column=column)
-if column:
-    img_b = np.rot90(img_b, k=3)
+img_b = pixelsort(img_a, 2, luminance)
 img_b = Image.fromarray(img_b)
 img_b.save('sorted.jpg')
