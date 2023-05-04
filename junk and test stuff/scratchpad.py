@@ -1,7 +1,7 @@
 import numpy as np
 from PIL import Image
 
-img = Image.open('igrj11014_4k.jpg')
+img = Image.open('../Main Files/igrj11014_4k.jpg')
 
 img_a = np.array(img)
 
