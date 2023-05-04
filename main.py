@@ -1,16 +1,17 @@
 from PIL import Image
 import numpy as np
 
-img = Image.open('WIN_20230504_11_24_30_Pro.jpg')
+img = Image.open('Bamburgh_Castle,_beautiful_day.jpg')
 
 img_a = np.array(img)
 
 
 def luminance(row):
-    row[:, 0] = row[:, 0] * 0.2126
-    row[:, 1] = row[:, 1] * 0.7152
-    row[:, 2] = row[:, 2] * 0.0722
-    return np.sum(row, axis=1)
+    temp = np.zeros_like(row)
+    temp[:, 0] = row[:, 0] * 0.2126
+    temp[:, 1] = row[:, 1] * 0.7152
+    temp[:, 2] = row[:, 2] * 0.0722
+    return np.sum(temp, axis=1)
 
     # TODO convert luminance back to rgb
 
@@ -45,6 +46,6 @@ def pixelsort(image, rotation=0, sorting_func=sum):
     return new_array
 
 
-img_b = pixelsort(img_a, 2, luminance)
+img_b = pixelsort(img_a, 2, sum)
 img_b = Image.fromarray(img_b)
 img_b.save('sorted.jpg')
