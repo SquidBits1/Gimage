@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-img = cv2.imread('Bamburgh_Castle,_beautiful_day.jpg', 1)
+img = cv2.imread('castle.jpg', 1)
 
 thresh_low = 90
 thresh_high = 200
