@@ -51,6 +51,6 @@ def threshold_to_zero_inverse(image, threshold):
     return image
 
 
-# img = binary_threshold(img, 127)
-# img = Image.fromarray(img).convert('RGB')
-# img.save('threshold.png')
+img = binary_threshold(img, 100)
+img = Image.fromarray(img).convert('RGB')
+img.save('threshold.png')
