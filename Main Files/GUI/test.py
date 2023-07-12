@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QPushButton, QSpinBox, QVBoxLayout, QWidget, \
-    QFileDialog, QLabel, QErrorMessage
-from PyQt6.QtGui import QImage, QPixmap
+    QFileDialog, QLabel, QErrorMessage, QMenu
+from PyQt6.QtGui import QImage, QPixmap, QAction
 
 
 class MainWindow(QMainWindow):
@@ -9,24 +9,61 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.label: QPushButton = None
+        # The title of the window
         self.setWindowTitle('Gilad GIMP')
-        self.setGeometry(500, 200, 600, 600)
-        self.count = 2
+        self.setGeometry(200, 200, 800, 600)
 
-        self.create_widgets()
+        # Defines the layouts of the window
+        main_layout = QVBoxLayout()
 
-    def create_widgets(self):
-        button = QPushButton('Click me', self)
-        button.setGeometry(100,200, 200, 200)
-        button.clicked.connect(self.clicked_button)
+        # Menu Bar and actions initialised
+        self._create_actions()
+        self._create_menu()
 
-        self.label = QLabel('My Label', self)
-        self.label.move(100,100)
+        # Important variables
+        self.source_filename = None
+        self.max_img_height = 400
+        self.max_img_width = 600
 
-    def clicked_button(self):
-        self.count += self.count
-        self.label.setText(str(self.count))
+        # Adds labels to layout
+        self._create_labels()
+        main_layout.addWidget(self.image_label)
+
+
+    # Handles creating menu bar
+    # TODO Add icons to menu options
+    def _create_menu(self):
+        menu_bar = self.menuBar()
+
+        # File Menu
+        file_menu = QMenu('&File', self)
+        menu_bar.addMenu(file_menu)
+        file_menu.addAction(self.open_action)
+        file_menu.addAction(self.save_action)
+        file_menu.addSeparator()
+        file_menu.addAction(self.exit_action)
+
+        # Edit Menu
+        # TODO add all edit image options here
+        edit_menu = QMenu('&Edit', self)
+        menu_bar.addMenu(edit_menu)
+
+        # Help Menu
+        help_menu = QMenu('&Help', self)
+        menu_bar.addMenu(help_menu)
+        help_menu.addAction(self.about_action)
+
+    # Handles creating actions for the menu bar
+    def _create_actions(self):
+        self.open_action = QAction("&Open...", self)
+        self.save_action = QAction("&Save...", self)
+        self.exit_action = QAction("&Exit", self)
+
+        self.about_action = QAction("&About", self)
+        # TODO add all edit actions here
+
+    def _create_labels(self):
+        self.image_label = QLabel()
 
 
 app = QApplication(sys.argv)
