@@ -74,7 +74,7 @@ class MainWindow(QMainWindow):
         self.open_action.triggered.connect(self.open_file)
 
     def open_file(self):
-        file_name, _ = QFileDialog.getOpenFileName(self, "Open Image File", r"C:\\Users\\Gilad\\Pictures",
+        file_name, file_type = QFileDialog.getOpenFileName(self, "Open Image File", r"C:\\Users\\Gilad\\Pictures",
                                                                             "All files (*.*);;BMP (*.bmp);;CUR ("
                                                                             "*.cur);;GIF (*.gif);;ICNS (*.icns);;ICO "
                                                                             "(*.ico);;JPEG (*.jpeg);;JPG (*.jpg);;PBM "
@@ -84,7 +84,6 @@ class MainWindow(QMainWindow):
                                                                             "*.tiff);;WBMP (*.wbmp);;WEBP ("
                                                                             "*.webp);;XBM (*.xbm);;XPM (*.xpm)"
 )
-        print(file_name)
         self.image_label.setPixmap(QPixmap(file_name))
 
 
