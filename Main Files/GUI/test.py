@@ -18,6 +18,7 @@ class MainWindow(QMainWindow):
 
         # Menu Bar and actions initialised
         self._create_actions()
+        self._connect_actions()
         self._create_menu()
 
         # Important variables
@@ -29,6 +30,10 @@ class MainWindow(QMainWindow):
         self._create_labels()
         main_layout.addWidget(self.image_label)
 
+        #Finalise
+        widget = QWidget()
+        widget.setLayout(main_layout)
+        self.setCentralWidget(widget)
 
     # Handles creating menu bar
     # TODO Add icons to menu options
@@ -65,6 +70,14 @@ class MainWindow(QMainWindow):
     def _create_labels(self):
         self.image_label = QLabel()
 
+    def _connect_actions(self):
+        self.open_action.triggered.connect(self.open_file)
+
+    def open_file(self):
+        file_name, _ = QFileDialog.getOpenFileName(self, "Open Image File", r"C:", "Image files (*.jpg *.jpeg *.gif "
+                                                                                   "*.png)")
+        print(file_name)
+        self.image_label.setPixmap(QPixmap(file_name))
 
 app = QApplication(sys.argv)
 
