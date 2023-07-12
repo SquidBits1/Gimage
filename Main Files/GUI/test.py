@@ -30,7 +30,7 @@ class MainWindow(QMainWindow):
         self._create_labels()
         main_layout.addWidget(self.image_label)
 
-        #Finalise
+        # Finalise
         widget = QWidget()
         widget.setLayout(main_layout)
         self.setCentralWidget(widget)
@@ -74,10 +74,19 @@ class MainWindow(QMainWindow):
         self.open_action.triggered.connect(self.open_file)
 
     def open_file(self):
-        file_name, _ = QFileDialog.getOpenFileName(self, "Open Image File", r"C:", "Image files (*.jpg *.jpeg *.gif "
-                                                                                   "*.png)")
+        file_name, _ = QFileDialog.getOpenFileName(self, "Open Image File", r"C:\\Users\\Gilad\\Pictures",
+                                                                            "All files (*.*);;BMP (*.bmp);;CUR ("
+                                                                            "*.cur);;GIF (*.gif);;ICNS (*.icns);;ICO "
+                                                                            "(*.ico);;JPEG (*.jpeg);;JPG (*.jpg);;PBM "
+                                                                            "(*.pbm);;PGM (*.pgm);;PNG (*.png);;PPM ("
+                                                                            "*.ppm);;SVG (*.svg);;SVGZ (*.svgz);;TGA "
+                                                                            "(*.tga);;TIF (*.tif);;TIFF ("
+                                                                            "*.tiff);;WBMP (*.wbmp);;WEBP ("
+                                                                            "*.webp);;XBM (*.xbm);;XPM (*.xpm)"
+)
         print(file_name)
         self.image_label.setPixmap(QPixmap(file_name))
+
 
 app = QApplication(sys.argv)
 
