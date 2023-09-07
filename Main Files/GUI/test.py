@@ -1,7 +1,8 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QPushButton, QSpinBox, QVBoxLayout, QWidget, \
-    QFileDialog, QLabel, QErrorMessage, QMenu
-from PyQt6.QtGui import QImage, QPixmap, QAction
+from PyQt5.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QPushButton, QSpinBox, QVBoxLayout, QWidget, \
+    QFileDialog, QLabel, QErrorMessage, QMenu, QAction
+from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtCore import Qt
 
 
 class MainWindow(QMainWindow):
@@ -75,16 +76,19 @@ class MainWindow(QMainWindow):
 
     def open_file(self):
         file_name, file_type = QFileDialog.getOpenFileName(self, "Open Image File", r"C:\\Users\\Gilad\\Pictures",
-                                                                            "All files (*.*);;BMP (*.bmp);;CUR ("
-                                                                            "*.cur);;GIF (*.gif);;ICNS (*.icns);;ICO "
-                                                                            "(*.ico);;JPEG (*.jpeg);;JPG (*.jpg);;PBM "
-                                                                            "(*.pbm);;PGM (*.pgm);;PNG (*.png);;PPM ("
-                                                                            "*.ppm);;SVG (*.svg);;SVGZ (*.svgz);;TGA "
-                                                                            "(*.tga);;TIF (*.tif);;TIFF ("
-                                                                            "*.tiff);;WBMP (*.wbmp);;WEBP ("
-                                                                            "*.webp);;XBM (*.xbm);;XPM (*.xpm)"
-)
-        self.image_label.setPixmap(QPixmap(file_name))
+                                                           "All files (*.*);;BMP (*.bmp);;CUR ("
+                                                           "*.cur);;GIF (*.gif);;ICNS (*.icns);;ICO "
+                                                           "(*.ico);;JPEG (*.jpeg);;JPG (*.jpg);;PBM "
+                                                           "(*.pbm);;PGM (*.pgm);;PNG (*.png);;PPM ("
+                                                           "*.ppm);;SVG (*.svg);;SVGZ (*.svgz);;TGA "
+                                                           "(*.tga);;TIF (*.tif);;TIFF ("
+                                                           "*.tiff);;WBMP (*.wbmp);;WEBP ("
+                                                           "*.webp);;XBM (*.xbm);;XPM (*.xpm)"
+                                                           )
+        pixmap_image = QPixmap(file_name)
+        pixmap_image = pixmap_image.scaled(800, 600, Qt.KeepAspectRatio)
+        self.image_label.setPixmap(pixmap_image)
+
 
 
 app = QApplication(sys.argv)
