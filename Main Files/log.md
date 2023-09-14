@@ -52,7 +52,7 @@ makes the largest variance in intensity between foreground (the would-be white p
 (the would-be light pixels). [Some nice source code for Otsu's method](https://docs.opencv.org/3.4/d7/d4d/tutorial_py_thresholding.html).
 
 
-## 28 June
+### 28 June
 I want to create a UI before carrying on with anything else, the problem is having a UI that
 allows you to see how your edits effect the image whilst you are editing it. I'm not sure if you can
 do that with tkinter. PyQT may work better.
