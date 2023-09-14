@@ -1,2 +1,2 @@
-# pixel_sorting
-pixel_sort
+# Gilad Gimp
+A simple photo editor with a simple GUI
