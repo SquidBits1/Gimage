@@ -56,3 +56,6 @@ makes the largest variance in intensity between foreground (the would-be white p
 I want to create a UI before carrying on with anything else, the problem is having a UI that
 allows you to see how your edits effect the image whilst you are editing it. I'm not sure if you can
 do that with tkinter. PyQT may work better.
+
+### June 11th 
+I started working on a GUI to show the user the images that are actually being edited. I did some research to find a good GUI module to use, as I knew tkinter would not be viable. It was important that the module would have good image tools, so I settled on PyQt, which has good image capabilities with four classes for handling Image Data. QPixmap is the class most important for my project, which handles showing images on screen. In the future I could use the QPicture class to allow painting. [Here is the documentation for PyQt image classes.](https://doc.qt.io/qtforpython-5/PySide2/QtGui/QPixmap.html#PySide2.QtGui.PySide2.QtGui.QPixmap.isQBitmap)
