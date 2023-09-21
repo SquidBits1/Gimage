@@ -98,9 +98,9 @@ class MainWindow(QMainWindow):
         self.image_label.setPixmap(pixmap_image)
 
 
-app = QApplication(sys.argv)
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
 
-window = MainWindow()
-window.show()
-
-sys.exit(app.exec())
+    sys.exit(app.exec())

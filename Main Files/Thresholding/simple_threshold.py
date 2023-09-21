@@ -1,10 +1,6 @@
 from PIL import Image
 import numpy as np
 
-img = Image.open("castle.jpg")
-img = np.array(img)
-# converts image to greyscale
-img = np.dot(img[..., 0:3], [0.299, 0.587, 0.114])
 
 
 def binary_threshold(image, threshold):
@@ -51,6 +47,12 @@ def threshold_to_zero_inverse(image, threshold):
     return image
 
 
-img = binary_threshold(img, 100)
-img = Image.fromarray(img).convert('RGB')
-img.save('threshold.png')
+if __name__ == '__main__':
+    img = Image.open("castle.jpg")
+    img = np.array(img)
+    # converts image to greyscale
+    img = np.dot(img[..., 0:3], [0.299, 0.587, 0.114])
+
+    img = binary_threshold(img, 100)
+    img = Image.fromarray(img).convert('RGB')
+    img.save('threshold.png')
