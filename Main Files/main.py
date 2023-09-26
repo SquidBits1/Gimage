@@ -5,7 +5,7 @@ from Thresholding import simple_threshold
 
 # links model functions to the GUI
 def link_functions(window):
-    #TODO is there a way to automate this?
+    # TODO is there a way to automate this?
     window.simple_threshold = simple_threshold.binary_threshold
 
 

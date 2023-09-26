@@ -11,3 +11,6 @@ as you make them.
 
 In order to load the image into the gui, I will abstract out the process of converting an image
 into a numpy array so that I can make it all work nice.
+
+I create a 'main_layout' which contains most of the widgets for the screen. Inside this layout
+is 'top_bar_layout', 'image_bar_layout', 'bottom_bar_layout'. 

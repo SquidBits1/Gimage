@@ -18,6 +18,9 @@ class MainWindow(QMainWindow):
 
         # Defines the layouts of the window
         main_layout = QVBoxLayout()
+        image_bar_layout = QHBoxLayout()
+        top_bar_layout = QHBoxLayout()
+        bottom_bar_layout = QHBoxLayout()
 
         # Menu Bar and actions initialised
         self._create_actions()
@@ -31,8 +34,14 @@ class MainWindow(QMainWindow):
         self.max_img_width = 600
 
         # Adds labels to layout
+        main_layout.addLayout(top_bar_layout)
+        main_layout.addLayout(image_bar_layout)
+        main_layout.addLayout(bottom_bar_layout)
         self._create_labels()
-        main_layout.addWidget(self.image_label)
+
+        # image bar labels
+        image_bar_layout.addWidget(self.image_label)
+        image_bar_layout.addWidget(self.processed_image_label)
 
         # Finalise
         widget = QWidget()
@@ -78,9 +87,13 @@ class MainWindow(QMainWindow):
 
     def _create_labels(self):
         self.image_label = QLabel()
+        self.processed_image_label = QLabel()
 
     def _connect_actions(self):
         self.open_action.triggered.connect(self.open_file)
+
+    def _process_image(self):
+        # TODO do this so it works, convert manipulated data to QPixmap
 
     # Opens a file and converts it into a pixmap to show a picture with correct aspect ratio
     def open_file(self):
@@ -101,6 +114,8 @@ class MainWindow(QMainWindow):
         self.source_image_data = np.array(Image.open(self.source_filename))
 
         self.image_label.setPixmap(pixmap_image)
+        self.processed_image_label.setPixmap(pixmap_image)
+
 
 
 if __name__ == '__main__':
