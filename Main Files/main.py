@@ -3,10 +3,16 @@ from GUI import GUI
 from Thresholding import simple_threshold
 
 
+# links model functions to the GUI
+def link_functions(window):
+    #TODO is there a way to automate this?
+    window.simple_threshold = simple_threshold.binary_threshold
+
+
 def initialise():
     app = GUI.QApplication(sys.argv)
     window = GUI.MainWindow()
-    # window.button_press.action_function = model.function
+    link_functions(window)
     window.show()
 
     sys.exit(app.exec())

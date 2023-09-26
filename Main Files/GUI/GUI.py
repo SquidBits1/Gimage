@@ -38,6 +38,11 @@ class MainWindow(QMainWindow):
         widget = QWidget()
         widget.setLayout(main_layout)
         self.setCentralWidget(widget)
+        self._declaration()
+
+    # Declares variables for image editing functions
+    def _declaration(self):
+        self.simple_threshold = None
 
     # Handles creating menu bar
     # TODO Add icons to menu options

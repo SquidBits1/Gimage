@@ -2,8 +2,13 @@ from PIL import Image
 import numpy as np
 
 
+def conv_to_gs(image):
+    image = np.dot(image[..., 0:3], [0.299, 0.587, 0.114])
+    return image
+
 
 def binary_threshold(image, threshold):
+    image = conv_to_gs(image)
     for cell in np.nditer(image, op_flags=['readwrite']):
         if cell > threshold:
             cell[...] = 255
