@@ -93,7 +93,9 @@ class MainWindow(QMainWindow):
         self.open_action.triggered.connect(self.open_file)
 
     def _process_image(self):
-        # TODO do this so it works, convert manipulated data to QPixmap
+        # TODO convert to Qpixmap from numpy array
+        ...
+
 
     # Opens a file and converts it into a pixmap to show a picture with correct aspect ratio
     def open_file(self):
