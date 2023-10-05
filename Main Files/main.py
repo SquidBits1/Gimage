@@ -1,6 +1,6 @@
 import sys
-from GUI import GUI
-from Thresholding import simple_threshold
+from Model import GUI
+from Model.Thresholding import simple_threshold
 
 
 # links model functions to the GUI
@@ -20,6 +20,7 @@ def initialise():
 
 def main():
     initialise()
+    # test
 
 
 if __name__ == '__main__':

@@ -22,6 +22,9 @@ class MainWindow(QMainWindow):
         top_bar_layout = QHBoxLayout()
         bottom_bar_layout = QHBoxLayout()
 
+        # Declares editing function variables
+        self._declaration()
+
         # Menu Bar and actions initialised
         self._create_actions()
         self._connect_actions()
@@ -30,6 +33,7 @@ class MainWindow(QMainWindow):
         # Important variables
         self.source_filename = None
         self.source_image_data = None
+        self.processed_source_image_data = None
         self.max_img_height = 400
         self.max_img_width = 600
 
@@ -39,6 +43,7 @@ class MainWindow(QMainWindow):
         main_layout.addLayout(bottom_bar_layout)
         self._create_labels()
 
+
         # image bar labels
         image_bar_layout.addWidget(self.image_label)
         image_bar_layout.addWidget(self.processed_image_label)
@@ -47,10 +52,10 @@ class MainWindow(QMainWindow):
         widget = QWidget()
         widget.setLayout(main_layout)
         self.setCentralWidget(widget)
-        self._declaration()
 
     # Declares variables for image editing functions
     def _declaration(self):
+        # TODO this has to be fixed
         self.simple_threshold = None
 
     # Handles creating menu bar
@@ -71,6 +76,8 @@ class MainWindow(QMainWindow):
         edit_menu = QMenu('&Edit', self)
         menu_bar.addMenu(edit_menu)
 
+        edit_menu.addAction(self.simple_threshold_action)
+
         # Help Menu
         help_menu = QMenu('&Help', self)
         menu_bar.addMenu(help_menu)
@@ -84,6 +91,7 @@ class MainWindow(QMainWindow):
 
         self.about_action = QAction("&About", self)
         # TODO add all edit actions here
+        self.simple_threshold_action = QAction("Threshold", self)
 
     def _create_labels(self):
         self.image_label = QLabel()
@@ -91,11 +99,12 @@ class MainWindow(QMainWindow):
 
     def _connect_actions(self):
         self.open_action.triggered.connect(self.open_file)
+        # TODO fix the thing here
+        # self.simple_threshold_action.triggered.connect(self.simple_threshold)
 
     def _process_image(self):
         # TODO convert to Qpixmap from numpy array
-        ...
-
+        processed_image = QImage(self.processed_source_image_data)
 
     # Opens a file and converts it into a pixmap to show a picture with correct aspect ratio
     def open_file(self):
@@ -117,7 +126,6 @@ class MainWindow(QMainWindow):
 
         self.image_label.setPixmap(pixmap_image)
         self.processed_image_label.setPixmap(pixmap_image)
-
 
 
 if __name__ == '__main__':
