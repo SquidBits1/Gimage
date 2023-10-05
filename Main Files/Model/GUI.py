@@ -23,6 +23,14 @@ class MainWindow(QMainWindow):
         top_bar_layout = QHBoxLayout()
         bottom_bar_layout = QHBoxLayout()
 
+        # Important variables
+        self.source_filename = None
+        self.source_image_data = None
+        self.processed_source_image_data = None
+        self.max_img_height = 400
+        self.max_img_width = 600
+        self.threshold = 127
+
         # Loads in functions
         self.functions = helper.functions
 
@@ -31,13 +39,6 @@ class MainWindow(QMainWindow):
         self._create_actions()
         self._connect_actions()
         self._create_menu()
-
-        # Important variables
-        self.source_filename = None
-        self.source_image_data = None
-        self.processed_source_image_data = None
-        self.max_img_height = 400
-        self.max_img_width = 600
 
         # Adds labels to layout
         main_layout.addLayout(top_bar_layout)
@@ -99,6 +100,7 @@ class MainWindow(QMainWindow):
 
         # Connects all the actions to functions
         for action in self.function_actions:
+            # TODO work out  how to pass paramaters to these functions
             action.triggered.connect(self.function_actions[action])
 
     def _process_image(self):
