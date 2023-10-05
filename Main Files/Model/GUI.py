@@ -5,6 +5,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import Qt
 from PIL import Image
 import numpy as np
+import helper
 
 
 class MainWindow(QMainWindow):
@@ -22,10 +23,11 @@ class MainWindow(QMainWindow):
         top_bar_layout = QHBoxLayout()
         bottom_bar_layout = QHBoxLayout()
 
-        # Declares editing function variables
-        self._declaration()
+        # Loads in functions
+        self.functions = helper.functions
 
         # Menu Bar and actions initialised
+        self.function_actions = dict()
         self._create_actions()
         self._connect_actions()
         self._create_menu()
@@ -43,7 +45,6 @@ class MainWindow(QMainWindow):
         main_layout.addLayout(bottom_bar_layout)
         self._create_labels()
 
-
         # image bar labels
         image_bar_layout.addWidget(self.image_label)
         image_bar_layout.addWidget(self.processed_image_label)
@@ -52,11 +53,6 @@ class MainWindow(QMainWindow):
         widget = QWidget()
         widget.setLayout(main_layout)
         self.setCentralWidget(widget)
-
-    # Declares variables for image editing functions
-    def _declaration(self):
-        # TODO this has to be fixed
-        self.simple_threshold = None
 
     # Handles creating menu bar
     # TODO Add icons to menu options
@@ -72,11 +68,11 @@ class MainWindow(QMainWindow):
         file_menu.addAction(self.exit_action)
 
         # Edit Menu
-        # TODO add all edit image options here
         edit_menu = QMenu('&Edit', self)
         menu_bar.addMenu(edit_menu)
 
-        edit_menu.addAction(self.simple_threshold_action)
+        for action in self.function_actions:
+            edit_menu.addAction(action)
 
         # Help Menu
         help_menu = QMenu('&Help', self)
@@ -90,8 +86,9 @@ class MainWindow(QMainWindow):
         self.exit_action = QAction("&Exit", self)
 
         self.about_action = QAction("&About", self)
-        # TODO add all edit actions here
-        self.simple_threshold_action = QAction("Threshold", self)
+
+        for function in self.functions:
+            self.function_actions[QAction(function, self)] = self.functions[function]
 
     def _create_labels(self):
         self.image_label = QLabel()
@@ -99,8 +96,10 @@ class MainWindow(QMainWindow):
 
     def _connect_actions(self):
         self.open_action.triggered.connect(self.open_file)
-        # TODO fix the thing here
-        # self.simple_threshold_action.triggered.connect(self.simple_threshold)
+
+        # Connects all the actions to functions
+        for action in self.function_actions:
+            action.triggered.connect(self.function_actions[action])
 
     def _process_image(self):
         # TODO convert to Qpixmap from numpy array
