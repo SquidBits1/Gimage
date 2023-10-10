@@ -1,6 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QPushButton, QSpinBox, QVBoxLayout, QWidget, \
-    QFileDialog, QLabel, QErrorMessage, QMenu, QAction
+from PyQt5.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout, QWidget, \
+    QFileDialog, QLabel, QMenu, QAction
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import Qt
 from PIL import Image
@@ -32,7 +32,7 @@ class MainWindow(QMainWindow):
         self.threshold = 127
 
         # Loads in functions
-        self.functions = helper.functions
+        self.plugins = helper.plugins
 
         # Menu Bar and actions initialised
         self.function_actions = dict()
