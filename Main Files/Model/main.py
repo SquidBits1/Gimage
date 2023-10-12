@@ -1,7 +1,5 @@
 import sys
-from Model import GUI
-
-
+import GUI
 
 
 def initialise():

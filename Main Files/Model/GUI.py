@@ -27,15 +27,19 @@ class MainWindow(QMainWindow):
         self.source_filename = None
         self.source_image_data = None
         self.processed_source_image_data = None
+        self.processed_image = None
         self.max_img_height = 400
         self.max_img_width = 600
         self.threshold = 127
+        self.current_function = None
 
-        # Loads in functions
+        # Loads in plugins
         self.plugins = helper.plugins
+        for plugin in self.plugins.values():
+            plugin.parent = self
 
         # Menu Bar and actions initialised
-        self.function_actions = dict()
+        self.plugin_actions = dict()
         self._create_actions()
         self._connect_actions()
         self._create_menu()
@@ -72,7 +76,7 @@ class MainWindow(QMainWindow):
         edit_menu = QMenu('&Edit', self)
         menu_bar.addMenu(edit_menu)
 
-        for action in self.function_actions:
+        for action in self.plugin_actions:
             edit_menu.addAction(action)
 
         # Help Menu
@@ -88,24 +92,29 @@ class MainWindow(QMainWindow):
 
         self.about_action = QAction("&About", self)
 
-        for function in self.functions:
-            self.function_actions[QAction(function, self)] = self.functions[function]
+        for plugin in self.plugins:
+            self.plugin_actions[QAction(plugin, self)] = self.plugins[plugin]
 
     def _create_labels(self):
         self.image_label = QLabel()
         self.processed_image_label = QLabel()
 
+    def _numpy_to_qimage(self, array):
+        height, width, channel = array.shape
+        bytes_per_line = 3 * width
+
     def _connect_actions(self):
         self.open_action.triggered.connect(self.open_file)
 
         # Connects all the actions to functions
-        for action in self.function_actions:
-            # TODO work out  how to pass paramaters to these functions
-            action.triggered.connect(self.function_actions[action])
+        for action in self.plugin_actions:
+            action.triggered.connect(self.plugin_actions[action].run_function)
 
-    def _process_image(self):
+    def process_image(self):
         # TODO convert to Qpixmap from numpy array
-        processed_image = QImage(self.processed_source_image_data)
+        height, width, channel = self.processed_source_image_data.shape
+        bytes_per_line = 3 * width
+        self.processed_image = QImage(self.processed_source_image_data, width, height, bytes_per_line, QImage.Format_RGB888)
 
     # Opens a file and converts it into a pixmap to show a picture with correct aspect ratio
     def open_file(self):
