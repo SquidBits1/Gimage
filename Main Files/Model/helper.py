@@ -14,9 +14,6 @@ class Plugin:
         self.parent.processed_source_image_data = self.function(self.image_data)
         self.parent.process_image()
 
-    def process(self):
-
-
 
 class ThresholdingPlugin(Plugin):
 
