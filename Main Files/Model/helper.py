@@ -9,7 +9,13 @@ class Plugin:
         self.parent = None
 
     def run_function(self):
-        return self.function(self.image_data)
+        self.parent.current_function = self
+        self.image_data = self.parent.source_image_data
+        self.parent.processed_source_image_data = self.function(self.image_data)
+        self.parent.process_image()
+
+    def process(self):
+
 
 
 class ThresholdingPlugin(Plugin):
