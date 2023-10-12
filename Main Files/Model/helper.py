@@ -16,7 +16,7 @@ class ThresholdingPlugin(Plugin):
 
     def __init__(self, function):
         super().__init__(function)
-        self.threshold = 127
+        self.threshold = 95
 
     def run_function(self):
         self.parent.current_function = self
