@@ -19,3 +19,6 @@ for algorithms used.
 This is a method that attempts to find an optimal thresholding value for an image. It calculates the threshold which
 makes the largest variance in intensity between foreground (the would-be white pixels) and background
 (the would-be light pixels). [Some nice source code for Otsu's method](https://docs.opencv.org/3.4/d7/d4d/tutorial_py_thresholding.html).
+
+
+
