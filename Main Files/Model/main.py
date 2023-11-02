@@ -8,7 +8,7 @@ def initialise():
     window.show()
 
     sys.exit(app.exec())
-
+    
 
 def main():
     initialise()

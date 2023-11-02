@@ -1,8 +1,9 @@
+
 import sys
-from PyQt5.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout, QWidget, \
-    QFileDialog, QLabel, QMenu, QAction
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtCore import Qt
+from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout, QWidget, \
+    QFileDialog, QLabel, QMenu
+from PyQt6.QtGui import QImage, QPixmap, QAction
+from PyQt6.QtCore import Qt
 from PIL import Image
 from PIL.ImageQt import ImageQt
 import numpy as np
@@ -110,7 +111,7 @@ class MainWindow(QMainWindow):
         image = Image.fromarray(self.processed_source_image_data).convert('RGBA')
         qimg = ImageQt(image)
         processed_image = QPixmap.fromImage(qimg)
-        processed_image = processed_image.scaled(800, 600, Qt.KeepAspectRatio)
+        processed_image = processed_image.scaled(800, 600, Qt.AspectRatioMode.KeepAspectRatio)
         self.processed_image_label.setPixmap(processed_image)
 
     # Opens a file and converts it into a pixmap to show a picture with correct aspect ratio
@@ -127,7 +128,8 @@ class MainWindow(QMainWindow):
                                                                       "*.webp);;XBM (*.xbm);;XPM (*.xpm)"
                                                                       )
         pixmap_image = QPixmap(self.source_filename)
-        pixmap_image = pixmap_image.scaled(800, 600, Qt.KeepAspectRatio)
+        # keep aspect ratio not working
+        pixmap_image = pixmap_image.scaled(800, 600, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
 
         self.source_image_data = np.array(Image.open(self.source_filename))
 
