@@ -30,6 +30,6 @@ class ThresholdingPlugin(Plugin):
 
 plugins = {
     'binary threshold': ThresholdingPlugin(simple_threshold.binary_threshold),
-    'pixel sort': Plugin(body.pixelsort)
+    # 'pixel sort': Plugin(body.pixelsort)
 
 }
