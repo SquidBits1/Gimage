@@ -19,6 +19,17 @@ def binary_threshold(image, threshold):
 
 
 def inverse_binary_threshold(image, threshold):
+    image = conv_to_gs(image)
+    for cell in np.nditer(image, op_flags=['readwrite']):
+        if cell < threshold:
+            cell[...] = 255
+        else:
+            cell[...] = 0
+
+    return image
+
+
+def halloween(image, threshold):
     for cell in np.nditer(image, op_flags=['readwrite']):
         if cell < threshold:
             cell[...] = 255
