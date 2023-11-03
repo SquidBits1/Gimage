@@ -15,6 +15,12 @@ class Plugin:
         self.function_input()
         self.parent.process_image()
 
+    def data_check(self):
+        if not self.image_data:
+            return True
+        else:
+            return False
+
     def function_input(self):
         self.parent.processed_source_image_data = self.function(self.image_data)
 
@@ -38,6 +44,7 @@ class PixelSortPlugin(Plugin):
 
     def function_input(self):
         self.parent.processed_source_image_data = self.function(self.image_data, self.rotation, self.sorting_func)
+
 
 plugins = {
     'binary threshold': ThresholdingPlugin(simple_threshold.binary_threshold),

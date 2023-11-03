@@ -108,6 +108,7 @@ class MainWindow(QMainWindow):
             action.triggered.connect(self.plugin_actions[action].run_function)
 
     def process_image(self):
+
         image = Image.fromarray(self.processed_source_image_data).convert('RGBA')
         qimg = ImageQt(image)
         processed_image = QPixmap.fromImage(qimg)
