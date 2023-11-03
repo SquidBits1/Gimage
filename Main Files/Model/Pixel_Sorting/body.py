@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 
-from sorting_functions import *
+from . import sorting_functions
 
 
 def sort_row(row, sorting_function):
@@ -17,7 +17,7 @@ def sort_row(row, sorting_function):
     return final_arr
 
 
-def pixelsort(image, rotation=0, sorting_func=luminance):
+def pixelsort(image, rotation=0, sorting_func=sorting_functions.luminance):
     # rotates image by value given
     image = np.rot90(image, k=rotation)
     new_array = np.empty_like(image)

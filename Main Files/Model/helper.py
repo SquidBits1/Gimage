@@ -1,4 +1,5 @@
 from Thresholding import simple_threshold
+from Pixel_Sorting import body
 
 
 class Plugin:
@@ -11,8 +12,11 @@ class Plugin:
     def run_function(self):
         self.parent.current_function = self
         self.image_data = self.parent.source_image_data
-        self.parent.processed_source_image_data = self.function(self.image_data)
+        self.function_input()
         self.parent.process_image()
+
+    def function_input(self):
+        self.parent.processed_source_image_data = self.function(self.image_data)
 
 
 class ThresholdingPlugin(Plugin):
@@ -21,15 +25,26 @@ class ThresholdingPlugin(Plugin):
         super().__init__(function)
         self.threshold = 95
 
-    def run_function(self):
-        self.parent.current_function = self
-        self.image_data = self.parent.source_image_data
+    def function_input(self):
         self.parent.processed_source_image_data = self.function(self.image_data, self.threshold)
-        self.parent.process_image()
 
+
+class PixelSortPlugin(Plugin):
+
+    def __init__(self, function):
+        super().__init__(function)
+        self.rotation = 1
+        self.sorting_func = body.sorting_functions.luminance
+
+    def function_input(self):
+        self.parent.processed_source_image_data = self.function(self.image_data, self.rotation, self.sorting_func)
 
 plugins = {
     'binary threshold': ThresholdingPlugin(simple_threshold.binary_threshold),
-    # 'pixel sort': Plugin(body.pixelsort)
+    'inverse binary threshold': ThresholdingPlugin(simple_threshold.inverse_binary_threshold),
+    'halloween (experimental scary ahh)': ThresholdingPlugin(simple_threshold.halloween),
+    'truncate threshold': ThresholdingPlugin(simple_threshold.truncate_threshold),
+    'threshold to zero': ThresholdingPlugin(simple_threshold.threshold_to_zero),
+    'pixel sort': PixelSortPlugin(body.pixelsort)
 
 }
