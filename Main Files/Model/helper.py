@@ -1,57 +1,19 @@
-from Thresholding import simple_threshold
-from Pixel_Sorting import body
+image_formats = {'bmp', 'cur', 'gif', 'icns', 'ico', 'jpeg', 'jpg', 'pbm', 'pgb', 'png', 'ppm', 'svg', 'svgz', 'tga',
+                 'tif', 'tiff', 'wbmp', 'webp', 'xbm', 'xpm'
+                 }
 
 
-class Plugin:
+def is_valid_image_file(filename):
+    valid = False
 
-    def __init__(self, function):
-        self.image_data = None
-        self.function = function
-        self.parent = None
+    if not filename or '.' not in filename:
+        valid = False
+    elif filename.split('.')[1] not in image_formats:
+        valid = False
+    else:
+        valid = True
 
-    def run_function(self):
-        self.parent.current_function = self
-        self.image_data = self.parent.source_image_data
-        self.function_input()
-        self.parent.process_image()
-
-    def data_check(self):
-        if not self.image_data:
-            return True
-        else:
-            return False
-
-    def function_input(self):
-        self.parent.processed_source_image_data = self.function(self.image_data)
+    return valid
 
 
-class ThresholdingPlugin(Plugin):
 
-    def __init__(self, function):
-        super().__init__(function)
-        self.threshold = 95
-
-    def function_input(self):
-        self.parent.processed_source_image_data = self.function(self.image_data, self.threshold)
-
-
-class PixelSortPlugin(Plugin):
-
-    def __init__(self, function):
-        super().__init__(function)
-        self.rotation = 1
-        self.sorting_func = body.sorting_functions.luminance
-
-    def function_input(self):
-        self.parent.processed_source_image_data = self.function(self.image_data, self.rotation, self.sorting_func)
-
-
-plugins = {
-    'binary threshold': ThresholdingPlugin(simple_threshold.binary_threshold),
-    'inverse binary threshold': ThresholdingPlugin(simple_threshold.inverse_binary_threshold),
-    'halloween (experimental scary ahh)': ThresholdingPlugin(simple_threshold.halloween),
-    'truncate threshold': ThresholdingPlugin(simple_threshold.truncate_threshold),
-    'threshold to zero': ThresholdingPlugin(simple_threshold.threshold_to_zero),
-    'pixel sort': PixelSortPlugin(body.pixelsort)
-
-}
