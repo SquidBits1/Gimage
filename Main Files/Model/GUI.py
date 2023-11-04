@@ -135,7 +135,6 @@ class MainWindow(QMainWindow):
             return
         else:
             pixmap_image = QPixmap(self.source_filename)
-            # TODO make check of image file so it doesn't crash when not an image
             pixmap_image = pixmap_image.scaled(800, 600, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
 
             self.source_image_data = np.array(Image.open(self.source_filename))
