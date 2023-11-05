@@ -19,8 +19,7 @@ def binary_threshold(image, threshold):
 
 
 def inverse_binary_threshold(image, threshold):
-    copied = np.copy(image)
-    copied = conv_to_gs(image)
+    image = conv_to_gs(image)
     for cell in np.nditer(image, op_flags=['readwrite']):
         if cell < threshold:
             cell[...] = 255
@@ -29,11 +28,12 @@ def inverse_binary_threshold(image, threshold):
 
     return image
 
+
 # each individual colour is checked here
 def halloween(image, threshold):
     copied = np.copy(image)
     for cell in np.nditer(copied, op_flags=['readwrite']):
-        if cell < threshold:
+        if cell > threshold:
             cell[...] = 255
         else:
             cell[...] = 0
@@ -54,6 +54,14 @@ def threshold_to_zero(image, threshold):
     image = conv_to_gs(image)
     for cell in np.nditer(image, op_flags=['readwrite']):
         if cell < threshold:
+            cell[...] = 0
+
+    return image
+
+
+def glitch(image, threshold):
+    for cell in np.nditer(image, op_flags=['readwrite']):
+        if cell > threshold:
             cell[...] = 0
 
     return image

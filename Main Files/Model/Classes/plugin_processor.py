@@ -61,6 +61,7 @@ plugins = {
     'halloween (experimental scary ahh)': ThresholdingPlugin(simple_threshold.halloween, 'halloween'),
     'truncate threshold': ThresholdingPlugin(simple_threshold.truncate_threshold, 'truncate threshold'),
     'threshold to zero': ThresholdingPlugin(simple_threshold.threshold_to_zero, 'threshold to zero'),
-    'pixel sort': PixelSortPlugin(body.pixelsort, 'pixel sort')
+    'pixel sort': PixelSortPlugin(body.pixelsort, 'pixel sort'),
+    'glitch': ThresholdingPlugin(simple_threshold.glitch, 'glitch (experimental)')
 
 }

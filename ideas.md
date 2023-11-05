@@ -1,0 +1,2 @@
+- sepia effect?
+- and other image filters like from  a real camera
