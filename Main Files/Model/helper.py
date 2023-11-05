@@ -5,6 +5,7 @@ image_formats = {'bmp', 'cur', 'gif', 'icns', 'ico', 'jpeg', 'jpg', 'pbm', 'pgb'
 
 def is_valid_image_file(filename):
     valid = False
+    image_format = None
 
     if not filename or '.' not in filename:
         valid = False
@@ -12,8 +13,9 @@ def is_valid_image_file(filename):
         valid = False
     else:
         valid = True
+        image_format = filename.split('.')[1]
 
-    return valid
+    return valid, image_format
 
 
 

@@ -6,7 +6,7 @@ from PyQt6.QtCore import Qt
 from PIL import Image
 from PIL.ImageQt import ImageQt
 import numpy as np
-from . import plugin_processor
+from .Classes import plugin_processor, ImageData
 from . import helper
 
 
@@ -19,20 +19,10 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Gilad GIMP')
         self.setGeometry(200, 200, 800, 600)
 
-        # Defines the layouts of the window
-        main_layout = QVBoxLayout()
-        image_bar_layout = QHBoxLayout()
-        top_bar_layout = QHBoxLayout()
-        bottom_bar_layout = QHBoxLayout()
+        # stores the image class
+        self.image: ImageData.ImageData | None = None
 
-        # Important variables
-        self.source_filename = None
-        self.file_type = None
-        self.source_image_data = None
-        self.processed_source_image_data = None
-        self.max_img_height = 400
-        self.max_img_width = 600
-        self.threshold = 127
+        # Function attributes
         self.current_function = None
 
         # Loads in plugins
@@ -46,20 +36,47 @@ class MainWindow(QMainWindow):
         self._connect_actions()
         self._create_menu()
 
-        # Adds labels to layout
-        main_layout.addLayout(top_bar_layout)
-        main_layout.addLayout(image_bar_layout)
-        main_layout.addLayout(bottom_bar_layout)
-        self._create_labels()
-
-        # image bar labels
-        image_bar_layout.addWidget(self.image_label)
-        image_bar_layout.addWidget(self.processed_image_label)
+        # Create Layouts
+        self._create_layout()
 
         # Finalise
         widget = QWidget()
-        widget.setLayout(main_layout)
+        widget.setLayout(self.main_layout)
         self.setCentralWidget(widget)
+
+    # Creates layouts
+    def _create_layout(self):
+        # Defines the layouts of the window
+        self.main_layout = QVBoxLayout()
+        self.image_bar_layout = QHBoxLayout()
+        self.image_layout = QVBoxLayout()
+        self.processed_image_layout = QVBoxLayout()
+        self.top_bar_layout = QHBoxLayout()
+        self.bottom_bar_layout = QHBoxLayout()
+
+
+        # Adds labels to layout
+        self.main_layout.addLayout(self.top_bar_layout)
+        self.main_layout.addLayout(self.image_bar_layout)
+        self.image_bar_layout.addLayout(self.image_layout)
+        self.image_bar_layout.addLayout(self.processed_image_layout)
+        self.main_layout.addLayout(self.bottom_bar_layout)
+        self._create_labels()
+
+        # image bar labels
+        self.image_layout.addWidget(self.textbox)
+        self.image_layout.addWidget(self.image_label)
+
+        self.processed_image_layout.addWidget(self.edit_textbox)
+        self.processed_image_layout.addWidget(self.processed_image_label)
+
+
+    def _create_labels(self):
+        self.image_label = QLabel()
+        self.processed_image_label = QLabel()
+
+        self.textbox = QLabel()
+        self.edit_textbox = QLabel()
 
     # Handles creating menu bar
     # TODO Add icons to menu options
@@ -97,9 +114,7 @@ class MainWindow(QMainWindow):
         for plugin in self.plugins:
             self.plugin_actions[QAction(plugin, self)] = self.plugins[plugin]
 
-    def _create_labels(self):
-        self.image_label = QLabel()
-        self.processed_image_label = QLabel()
+
 
     def _connect_actions(self):
         self.open_action.triggered.connect(self.open_file)
@@ -109,37 +124,40 @@ class MainWindow(QMainWindow):
             action.triggered.connect(self.plugin_actions[action].run_function)
 
     def process_image(self):
-
-        image = Image.fromarray(self.processed_source_image_data).convert('RGBA')
+        image = Image.fromarray(self.image.processed_image_datas[0]).convert('RGBA')
         qimg = ImageQt(image)
         processed_image = QPixmap.fromImage(qimg)
         processed_image = processed_image.scaled(800, 600, Qt.AspectRatioMode.KeepAspectRatio)
         self.processed_image_label.setPixmap(processed_image)
+        self.edit_textbox.setText(self.current_function)
 
     # Opens a file and converts it into a pixmap to show a picture with correct aspect ratio
     def open_file(self):
-        self.source_filename, self.file_type = QFileDialog.getOpenFileName(self, "Open Image File",
-                                                                           r"C:\\Users\\Gilad\\Pictures",
-                                                                           "All files (*.*);;BMP (*.bmp);;CUR ("
-                                                                           "*.cur);;GIF (*.gif);;ICNS (*.icns);;ICO "
-                                                                           "(*.ico);;JPEG (*.jpeg);;JPG (*.jpg);;PBM "
-                                                                           "(*.pbm);;PGM (*.pgm);;PNG (*.png);;PPM ("
-                                                                           "*.ppm);;SVG (*.svg);;SVGZ (*.svgz);;TGA "
-                                                                           "(*.tga);;TIF (*.tif);;TIFF ("
-                                                                           "*.tiff);;WBMP (*.wbmp);;WEBP ("
-                                                                           "*.webp);;XBM (*.xbm);;XPM (*.xpm)"
-                                                                           )
-
+        source_filename, file_type = QFileDialog.getOpenFileName(self, "Open Image File",
+                                                                 r"C:\\Users\\Gilad\\Pictures",
+                                                                 "All files (*.*);;BMP (*.bmp);;CUR ("
+                                                                 "*.cur);;GIF (*.gif);;ICNS (*.icns);;ICO "
+                                                                 "(*.ico);;JPEG (*.jpeg);;JPG (*.jpg);;PBM "
+                                                                 "(*.pbm);;PGM (*.pgm);;PNG (*.png);;PPM ("
+                                                                 "*.ppm);;SVG (*.svg);;SVGZ (*.svgz);;TGA "
+                                                                 "(*.tga);;TIF (*.tif);;TIFF ("
+                                                                 "*.tiff);;WBMP (*.wbmp);;WEBP ("
+                                                                 "*.webp);;XBM (*.xbm);;XPM (*.xpm)"
+                                                                 )
         # Handles checking if file has been picked/valid file
-        if not helper.is_valid_image_file(self.source_filename):
+        valid, filetype = helper.is_valid_image_file(source_filename)
+        if not valid:
+            self.textbox.setText('Image not valid')
             return
         else:
-            pixmap_image = QPixmap(self.source_filename)
+            # Creates image object with image data
+            self.image = ImageData.ImageData(source_filename, np.array(Image.open(source_filename)))
+
+            # Shows image on window
+            pixmap_image = QPixmap(self.image.source_filename)
             pixmap_image = pixmap_image.scaled(800, 600, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
-
-            self.source_image_data = np.array(Image.open(self.source_filename))
             self.image_label.setPixmap(pixmap_image)
-
+            self.textbox.setText(f'{self.image}')
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
