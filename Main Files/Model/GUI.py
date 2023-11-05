@@ -1,4 +1,5 @@
 import sys
+import os
 from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout, QWidget, \
     QFileDialog, QLabel, QMenu
 from PyQt6.QtGui import QPixmap, QAction
@@ -14,6 +15,8 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super(MainWindow, self).__init__()
+
+        self.dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
         # The title of the window
         self.setWindowTitle('Gilad GIMP')
@@ -94,6 +97,7 @@ class MainWindow(QMainWindow):
         edit_menu = QMenu('&Edit', self)
         menu_bar.addMenu(edit_menu)
 
+        # TODO can you add sub menus?
         for action in self.plugin_actions:
             edit_menu.addAction(action)
 
@@ -163,7 +167,7 @@ class MainWindow(QMainWindow):
             self.edit_textbox.setText('Image not edited yet')
             return
 
-        self.pillow_image.save(f'{self.image.no_extension}_edited.png' , format='PNG')
+        self.pillow_image.save(f'{self.dir}\Saved Images\{self.image.no_extension}_edited.png', format='PNG')
 
         self.edit_textbox.setText('Saved Image')
 

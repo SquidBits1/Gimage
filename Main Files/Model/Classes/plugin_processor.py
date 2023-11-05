@@ -55,7 +55,6 @@ class PixelSortPlugin(Plugin):
     def function_input(self):
         self.parent.image.add_image(self.function(self.image_data, self.rotation, self.sorting_func))
 
-
 plugin_list = [
     ThresholdingPlugin(simple_threshold.binary_threshold, 'binary threshold'),
     ThresholdingPlugin(simple_threshold.inverse_binary_threshold, 'inverse binary threshold'),
