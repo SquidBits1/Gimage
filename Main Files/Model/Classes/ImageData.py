@@ -10,8 +10,14 @@ class ImageData:
         self.image_height = None
         self.image_width = None
 
+        self._process()
+
+    def _process(self):
+        self.no_path = self.source_filename.split('/')[-1]
+        self.no_extension = self.no_path.split('.')[0]
+
     def add_image(self, image_data):
         self.processed_image_datas[0] = image_data
 
     def __repr__(self):
-        return self.source_filename.split('/')[-1]
+        return self.no_path

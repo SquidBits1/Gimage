@@ -24,6 +24,7 @@ class MainWindow(QMainWindow):
 
         # Function attributes
         self.current_function = None
+        self.pillow_image: Image.Image | None = None
 
         # Loads in plugins
         self.plugins = plugin_processor.plugin_list
@@ -114,14 +115,15 @@ class MainWindow(QMainWindow):
 
     def _connect_actions(self):
         self.open_action.triggered.connect(self.open_file)
+        self.save_action.triggered.connect(self.save_file)
 
         # Connects all the actions to functions
         for action in self.plugin_actions:
             action.triggered.connect(self.plugin_actions[action].run_function)
 
     def process_image(self):
-        image = Image.fromarray(self.image.processed_image_datas[0]).convert('RGBA')
-        qimg = ImageQt(image)
+        self.pillow_image = Image.fromarray(self.image.processed_image_datas[0]).convert('RGBA')
+        qimg = ImageQt(self.pillow_image)
         processed_image = QPixmap.fromImage(qimg)
         processed_image = processed_image.scaled(800, 600, Qt.AspectRatioMode.KeepAspectRatio)
         self.processed_image_label.setPixmap(processed_image)
@@ -148,12 +150,22 @@ class MainWindow(QMainWindow):
         else:
             # Creates image object with image data
             self.image = ImageData.ImageData(source_filename, np.array(Image.open(source_filename)))
+            self.image.filetype = filetype
 
             # Shows image on window
             pixmap_image = QPixmap(self.image.source_filename)
             pixmap_image = pixmap_image.scaled(800, 600, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
             self.image_label.setPixmap(pixmap_image)
             self.textbox.setText(f'{self.image}')
+
+    def save_file(self):
+        if not self.pillow_image:
+            self.edit_textbox.setText('Image not edited yet')
+            return
+
+        self.pillow_image.save(f'{self.image.no_extension}_edited.png' , format='PNG')
+
+        self.edit_textbox.setText('Saved Image')
 
 
 if __name__ == '__main__':
