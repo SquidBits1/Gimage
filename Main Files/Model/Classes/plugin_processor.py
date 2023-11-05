@@ -1,5 +1,6 @@
 from ..Thresholding import simple_threshold
 from ..Pixel_Sorting import body
+from ..Dev_Functions import copy
 
 
 class Plugin:
@@ -62,6 +63,7 @@ plugin_list = [
     ThresholdingPlugin(simple_threshold.truncate_threshold, 'truncate threshold'),
     ThresholdingPlugin(simple_threshold.threshold_to_zero, 'threshold to zero'),
     PixelSortPlugin(body.pixelsort, 'pixel sort'),
-    ThresholdingPlugin(simple_threshold.glitch, 'glitch (experimental)')
+    ThresholdingPlugin(simple_threshold.glitch, 'glitch (experimental)'),
+    Plugin(copy.copy, 'copy')
 
 ]
