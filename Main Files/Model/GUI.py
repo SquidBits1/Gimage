@@ -26,8 +26,8 @@ class MainWindow(QMainWindow):
         self.current_function = None
 
         # Loads in plugins
-        self.plugins = plugin_processor.plugins
-        for plugin in self.plugins.values():
+        self.plugins = plugin_processor.plugin_list
+        for plugin in self.plugins:
             plugin.parent = self
 
         # Menu Bar and actions initialised
@@ -54,7 +54,6 @@ class MainWindow(QMainWindow):
         self.top_bar_layout = QHBoxLayout()
         self.bottom_bar_layout = QHBoxLayout()
 
-
         # Adds labels to layout
         self.main_layout.addLayout(self.top_bar_layout)
         self.main_layout.addLayout(self.image_bar_layout)
@@ -69,7 +68,6 @@ class MainWindow(QMainWindow):
 
         self.processed_image_layout.addWidget(self.edit_textbox)
         self.processed_image_layout.addWidget(self.processed_image_label)
-
 
     def _create_labels(self):
         self.image_label = QLabel()
@@ -112,9 +110,7 @@ class MainWindow(QMainWindow):
         self.about_action = QAction("&About", self)
 
         for plugin in self.plugins:
-            self.plugin_actions[QAction(plugin, self)] = self.plugins[plugin]
-
-
+            self.plugin_actions[QAction(plugin.name, self)] = plugin
 
     def _connect_actions(self):
         self.open_action.triggered.connect(self.open_file)
@@ -158,6 +154,7 @@ class MainWindow(QMainWindow):
             pixmap_image = pixmap_image.scaled(800, 600, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
             self.image_label.setPixmap(pixmap_image)
             self.textbox.setText(f'{self.image}')
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

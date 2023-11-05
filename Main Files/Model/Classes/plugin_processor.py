@@ -55,13 +55,13 @@ class PixelSortPlugin(Plugin):
         self.parent.image.add_image(self.function(self.image_data, self.rotation, self.sorting_func))
 
 
-plugins = {
-    'binary threshold': ThresholdingPlugin(simple_threshold.binary_threshold, 'binary threshold'),
-    'inverse binary threshold': ThresholdingPlugin(simple_threshold.inverse_binary_threshold, 'inverse binary threshold'),
-    'halloween (experimental scary ahh)': ThresholdingPlugin(simple_threshold.halloween, 'halloween'),
-    'truncate threshold': ThresholdingPlugin(simple_threshold.truncate_threshold, 'truncate threshold'),
-    'threshold to zero': ThresholdingPlugin(simple_threshold.threshold_to_zero, 'threshold to zero'),
-    'pixel sort': PixelSortPlugin(body.pixelsort, 'pixel sort'),
-    'glitch': ThresholdingPlugin(simple_threshold.glitch, 'glitch (experimental)')
+plugin_list = [
+    ThresholdingPlugin(simple_threshold.binary_threshold, 'binary threshold'),
+    ThresholdingPlugin(simple_threshold.inverse_binary_threshold, 'inverse binary threshold'),
+    ThresholdingPlugin(simple_threshold.halloween, 'halloween'),
+    ThresholdingPlugin(simple_threshold.truncate_threshold, 'truncate threshold'),
+    ThresholdingPlugin(simple_threshold.threshold_to_zero, 'threshold to zero'),
+    PixelSortPlugin(body.pixelsort, 'pixel sort'),
+    ThresholdingPlugin(simple_threshold.glitch, 'glitch (experimental)')
 
-}
+]
