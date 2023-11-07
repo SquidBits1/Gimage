@@ -60,11 +60,12 @@ def threshold_to_zero(image, threshold):
 
 
 def glitch(image, threshold):
-    for cell in np.nditer(image, op_flags=['readwrite']):
+    copied = np.copy(image)
+    for cell in np.nditer(copied, op_flags=['readwrite']):
         if cell > threshold:
             cell[...] = 0
 
-    return image
+    return copied
 
 
 def threshold_to_zero_inverse(image, threshold):

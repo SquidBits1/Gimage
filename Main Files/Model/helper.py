@@ -9,7 +9,7 @@ def is_valid_image_file(filename):
 
     if not filename or '.' not in filename:
         valid = False
-    elif filename.split('.')[1] not in image_formats:
+    elif filename.split('.')[-1] not in image_formats:
         valid = False
     else:
         valid = True

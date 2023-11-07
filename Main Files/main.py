@@ -1,10 +1,10 @@
 import sys
-from Model import GUI
+from Model.Core import GUI, processes
 
 
 def initialise():
     app = GUI.QApplication(sys.argv)
-    window = GUI.MainWindow()
+    window = processes.ProcessWindow()
     window.show()
 
     sys.exit(app.exec())
