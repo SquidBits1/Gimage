@@ -40,7 +40,7 @@ Thresholding is when you take a greyscale image (one channel) and apply a functi
 input threshold. For example, you could make any pixels with a value higher than the threshold black and the pixels with
 a value smaller than the threshold white. This turns it into a binary image which looks like this:
 
-![Binary Image](Model/Thresholding/threshold.png)
+![Binary Image](Model/Plugins/Thresholding/threshold.png)
 
 Check [A Brief Study of Image Thresholding Algorithms](https://www.analyticsvidhya.com/blog/2022/07/a-brief-study-of-image-thresholding-algorithms/#:~:text=Image%20thresholding%20is%20a%20type,is%20done%20in%20grayscale%20images.)
 for algorithms used. 

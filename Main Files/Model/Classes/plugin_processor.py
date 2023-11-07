@@ -1,7 +1,7 @@
-from ..Thresholding import simple_threshold
-from ..Pixel_Sorting import body
-from ..Dev_Functions import copy
 
+from ..Dev_Functions import copy
+from ..Plugins.Pixel_Sorting import body
+from ..Plugins.Thresholding import simple_threshold
 
 class Plugin:
 
