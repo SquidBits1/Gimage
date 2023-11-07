@@ -3,7 +3,8 @@ import os
 from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout, QWidget, QLabel, QMenu
 from PyQt6.QtGui import QAction
 from PIL import Image
-from ..Classes import plugin_processor, ImageData
+from core.helpers.classes import ImageData
+from core.plugins import plugin_processor
 
 
 class MainWindow(QMainWindow):
@@ -32,7 +33,6 @@ class MainWindow(QMainWindow):
         # Menu Bar and actions initialised
         self.plugin_actions = dict()
         self._create_actions()
-        self._connect_actions()
         self._create_menu()
 
         # Create Layouts

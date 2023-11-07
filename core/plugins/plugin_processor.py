@@ -1,7 +1,9 @@
 
-from ..Dev_Functions import copy
-from ..Plugins.Pixel_Sorting import body
-from ..Plugins.Thresholding import simple_threshold
+from core.plugins.dev_functions import copy
+from core.plugins.pixel_sorting import body
+from core.plugins.thresholding import simple_threshold
+
+
 
 class Plugin:
 
@@ -66,3 +68,6 @@ plugin_list = [
     Plugin(copy.copy, 'copy')
 
 ]
+
+if __name__ == '__main__':
+    print('yay')

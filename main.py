@@ -1,5 +1,5 @@
 import sys
-from Model.Core import GUI, processes
+from core import GUI, processes
 
 
 def initialise():

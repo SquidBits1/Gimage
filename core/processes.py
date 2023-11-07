@@ -1,18 +1,19 @@
-from .GUI import MainWindow
 from PIL import Image
 from PIL.ImageQt import ImageQt
 from PyQt6.QtWidgets import QFileDialog
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 import numpy as np
-from .. import helper
-from ..Classes import ImageData
+from core.GUI import MainWindow
+from core.helpers import helper
+from core.helpers.classes import ImageData
 
 
 class ProcessWindow(MainWindow):
 
     def __init__(self):
         super().__init__()
+        self._connect_actions()
 
     def _connect_actions(self):
         self.open_action.triggered.connect(self.open_file)
