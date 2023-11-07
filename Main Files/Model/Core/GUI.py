@@ -112,13 +112,7 @@ class MainWindow(QMainWindow):
         for plugin in self.plugins:
             self.plugin_actions[QAction(plugin.name, self)] = plugin
 
-    def _connect_actions(self):
-        self.open_action.triggered.connect(self.open_file)
-        self.save_action.triggered.connect(self.save_file)
 
-        # Connects all the actions to functions
-        for action in self.plugin_actions:
-            action.triggered.connect(self.plugin_actions[action].run_function)
 
 
 if __name__ == '__main__':

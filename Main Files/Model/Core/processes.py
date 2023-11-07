@@ -14,6 +14,14 @@ class ProcessWindow(MainWindow):
     def __init__(self):
         super().__init__()
 
+    def _connect_actions(self):
+        self.open_action.triggered.connect(self.open_file)
+        self.save_action.triggered.connect(self.save_file)
+
+        # Connects all the actions to functions
+        for action in self.plugin_actions:
+            action.triggered.connect(self.plugin_actions[action].run_function)
+
     def process_image(self):
         self.pillow_image = Image.fromarray(self.image.processed_image_datas[0]).convert('RGBA')
         qimg = ImageQt(self.pillow_image)
@@ -35,7 +43,6 @@ class ProcessWindow(MainWindow):
                                                                  "*.tiff);;WBMP (*.wbmp);;WEBP ("
                                                                  "*.webp);;XBM (*.xbm);;XPM (*.xpm)"
                                                                  )
-        print('made it here')
         # Handles checking if file has been picked/valid file
         valid, filetype = helper.is_valid_image_file(source_filename)
 
