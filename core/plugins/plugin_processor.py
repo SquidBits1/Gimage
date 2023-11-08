@@ -1,7 +1,10 @@
+from typing import Callable
+import numpy as np
 
 from core.plugins.dev_functions import copy
 from core.plugins.pixel_sorting import body
 from core.plugins.thresholding import simple_threshold
+
 
 
 
@@ -57,6 +60,7 @@ class PixelSortPlugin(Plugin):
     def function_input(self):
         self.parent.image.add_image(self.function(self.image_data, self.rotation, self.sorting_func))
 
+
 plugin_list = [
     ThresholdingPlugin(simple_threshold.binary_threshold, 'binary threshold'),
     ThresholdingPlugin(simple_threshold.inverse_binary_threshold, 'inverse binary threshold'),
@@ -68,6 +72,3 @@ plugin_list = [
     Plugin(copy.copy, 'copy')
 
 ]
-
-if __name__ == '__main__':
-    print('yay')

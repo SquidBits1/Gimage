@@ -1,3 +1,13 @@
+from dataclasses import dataclass
+from core.plugins import factory
 
-def copy(image):
-    return image
+
+@dataclass
+class DevPlugin:
+
+    def copy(image):
+        return image
+
+
+def register() -> None:
+    factory.register('DevPlugin', DevPlugin)

@@ -5,8 +5,7 @@ from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 import numpy as np
 from core.GUI import MainWindow
-from core.helpers import helper
-from core.helpers.classes import ImageData
+from core.helpers import helper, ImageData
 
 
 class ProcessWindow(MainWindow):
