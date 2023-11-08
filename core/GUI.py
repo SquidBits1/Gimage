@@ -12,8 +12,8 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-
+        self.dir = os.path.dirname(os.path.dirname(__file__))
+        print(self.dir)
         # The title of the window
         self.setWindowTitle('Gilad GIMP')
         self.setGeometry(200, 200, 800, 600)

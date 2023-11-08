@@ -69,6 +69,6 @@ class ProcessWindow(MainWindow):
             self.edit_textbox.setText('Image not edited yet')
             return
 
-        self.pillow_image.save(f'{self.dir}\Saved Images\{self.image.no_extension}_edited.png', format='PNG')
+        self.pillow_image.save(f'{self.dir}\\Saved Images\\{self.image.no_extension}_edited.png', format='PNG')
 
         self.edit_textbox.setText('Saved Image')
