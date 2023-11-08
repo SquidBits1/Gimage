@@ -1,9 +1,8 @@
 from PIL import Image
 import numpy as np
-from matplotlib import pyplot as plt
-import math
 
-img = Image.open("castle.jpg")
+
+img = Image.open("../core/plugin_manager/plugins/thresholding/castle.jpg")
 img = np.array(img)
 # converts image to greyscale
 img = np.dot(img[..., 0:3], [0.299, 0.587, 0.114])

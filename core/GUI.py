@@ -25,7 +25,7 @@ class MainWindow(QMainWindow):
         self.current_function = None
         self.pillow_image: Image.Image | None = None
 
-        # Loads in plugins
+        # Loads in plugin_manager
         self.plugins = plugin_processor.plugin_list
         for plugin in self.plugins:
             plugin.parent = self
