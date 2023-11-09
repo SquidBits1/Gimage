@@ -47,14 +47,19 @@ class PluginManager(ImagePlugin):
             else:
                 base_class_methods = dir(ImagePlugin())
                 all_class_methods = dir(plugin_instance)
-                methods = {method: getattr(plugin_instance, method) for method in all_class_methods if method not in base_class_methods}
+                methods = dict()
+                # makes a dictionary of methods with method names if method has valid signature
+                for method in all_class_methods:
+                    method_instance = getattr(plugin_instance, method)
+                    if method not in base_class_methods and 'image' in inspect.signature(method_instance).parameters:
+                        methods[method] = method_instance
                 self.method_list[plugin_name] = methods
 
     def get_sub_plugins(self):
-        return [plugin for plugin in self.plugins.values() if isinstance(plugin, PluginManager)]
+        return {name: plugin for name, plugin in self.plugins.items() if isinstance(plugin, PluginManager)}
 
     def get_plugins(self):
-        return [plugin[0] for plugin in self.plugins.items() if not isinstance(plugin[1], ImagePlugin)]
+        return {name: plugin for name, plugin in self.plugins.items() if not isinstance(plugin, PluginManager)}
 
     def get_methods(self):
         methods = [method for method in self.method_list.values()]
@@ -64,4 +69,4 @@ class PluginManager(ImagePlugin):
 if __name__ == '__main__':
     plugins = PluginManager('C:\\Users\\Gilad\\PycharmProjects\\Gilad-Gimp\\core\\plugin_manager\\plugins')
     plugins.load_plugins()
-    print(plugins.get_methods())
+    print(plugins.get_plugins())

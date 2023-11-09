@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout,
 from PyQt6.QtGui import QAction
 from PIL import Image
 from core.helpers import ImageData
-from core.plugin_manager import plugin_processor
+from core.plugin_manager import plugin_processor, plugin_manager
 
 
 class MainWindow(QMainWindow):
@@ -13,7 +13,6 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
 
         self.dir = os.path.dirname(os.path.dirname(__file__))
-        print(self.dir)
         # The title of the window
         self.setWindowTitle('Gilad GIMP')
         self.setGeometry(200, 200, 800, 600)
@@ -26,6 +25,8 @@ class MainWindow(QMainWindow):
         self.pillow_image: Image.Image | None = None
 
         # Loads in plugin_manager
+        self.plugin_manager = plugin_manager.PluginManager(self.dir+'\\core\\plugin_manager\\plugins')
+        self.plugin_manager.load_plugins()
         self.plugins = plugin_processor.plugin_list
         for plugin in self.plugins:
             plugin.parent = self
