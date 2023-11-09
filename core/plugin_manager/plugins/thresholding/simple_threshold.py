@@ -6,6 +6,7 @@ from dataclasses import dataclass
 @dataclass
 class ImagePlugin:
 
+
     @staticmethod
     def conv_to_gs(image):
         image = np.dot(image[..., 0:3], [0.299, 0.587, 0.114])

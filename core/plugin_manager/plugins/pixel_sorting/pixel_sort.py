@@ -6,6 +6,7 @@ from core.plugin_manager.plugins.pixel_sorting import sorting_functions
 @dataclass
 class ImagePlugin:
 
+
     @staticmethod
     def sort_row(row, sorting_function):
         # sums all the pixel values to find a basic pixel "brightness" value
