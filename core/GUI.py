@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout,
 from PyQt6.QtGui import QAction
 from PIL import Image
 from core.helpers import ImageData
-from core.plugin_manager import plugin_processor, plugin_manager
+from core.plugin_manager import plugin_manager
 
 
 class MainWindow(QMainWindow):
@@ -27,9 +27,6 @@ class MainWindow(QMainWindow):
         # Loads in plugin_manager
         self.plugin_manager = plugin_manager.PluginManager(self.dir+'\\core\\plugin_manager\\plugins')
         self.plugin_manager.load_plugins()
-        self.plugins = plugin_processor.plugin_list
-        for plugin in self.plugins:
-            plugin.parent = self
 
         # Menu Bar and actions initialised
         self.plugin_actions = dict()
@@ -93,9 +90,16 @@ class MainWindow(QMainWindow):
         edit_menu = QMenu('&Edit', self)
         menu_bar.addMenu(edit_menu)
 
-        # TODO can you add sub menus?
-        for action in self.plugin_actions:
-            edit_menu.addAction(action)
+        for manager in self.plugin_manager.manager_list:
+            for plugin_name, methods in manager.method_dict.items():
+                menu = QMenu(plugin_name, self)
+                edit_menu.addMenu(menu)
+                for method_name, method in methods.items():
+                    method_action = QAction(method_name, self)
+                    self.plugin_actions[method_action] = method
+                    method.parent = self
+                    menu.addAction(method_action)
+
 
         # Help Menu
         help_menu = QMenu('&Help', self)
@@ -110,8 +114,9 @@ class MainWindow(QMainWindow):
 
         self.about_action = QAction("&About", self)
 
-        for plugin in self.plugins:
-            self.plugin_actions[QAction(plugin.name, self)] = plugin
+
+
+
 
 
 

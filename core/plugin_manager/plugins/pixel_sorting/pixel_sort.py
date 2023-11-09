@@ -7,7 +7,7 @@ from core.plugin_manager.plugins.pixel_sorting import sorting_functions
 class ImagePlugin:
 
     @staticmethod
-    def sort_row(self, row, sorting_function):
+    def sort_row(row, sorting_function):
         # sums all the pixel values to find a basic pixel "brightness" value
         summed = sorting_function(row[:, :4])
         min_index = np.argmin(summed)

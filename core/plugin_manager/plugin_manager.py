@@ -2,6 +2,7 @@ import importlib.util
 import inspect
 import os
 from core.plugin_manager.imageplugin import ImagePlugin
+from core.plugin_manager.factory import Factory
 
 
 class PluginManager(ImagePlugin):
@@ -9,7 +10,9 @@ class PluginManager(ImagePlugin):
     def __init__(self, folder_path):
         self.folder_path = folder_path
         self.plugins = dict()
-        self.method_list = {}
+        self.method_dict = {}
+        self.method_list = []
+        self.manager_list = [self]
 
     # loads plugins using path specified for PluginManager
     def load_plugins(self):
@@ -22,6 +25,7 @@ class PluginManager(ImagePlugin):
             # self.plugins | Then loads plugins into that PluginManager
             elif os.path.isdir(entry_path):
                 self.plugins[entry] = PluginManager(entry_path)
+                self.manager_list.append(self.plugins[entry])
                 self.plugins[entry].load_plugins()
             elif entry.endswith('.py'):
                 self.load_plugin_from_file(entry_path)
@@ -50,10 +54,17 @@ class PluginManager(ImagePlugin):
                 methods = dict()
                 # makes a dictionary of methods with method names if method has valid signature
                 for method in all_class_methods:
+                    signature = []
                     method_instance = getattr(plugin_instance, method)
-                    if method not in base_class_methods and 'image' in inspect.signature(method_instance).parameters:
-                        methods[method] = method_instance
-                self.method_list[plugin_name] = methods
+                    if not method.startswith('__'):
+                        signature = str(inspect.signature(method_instance))[1:-1].split(',')
+                    else:
+                        pass
+
+                    if method not in base_class_methods and signature[0] == 'image':
+                        methods[method] = Factory(method_instance)
+                self.method_dict[plugin_name] = methods
+                self.method_list.append(methods)
 
     def get_sub_plugins(self):
         return {name: plugin for name, plugin in self.plugins.items() if isinstance(plugin, PluginManager)}
@@ -62,11 +73,12 @@ class PluginManager(ImagePlugin):
         return {name: plugin for name, plugin in self.plugins.items() if not isinstance(plugin, PluginManager)}
 
     def get_methods(self):
-        methods = [method for method in self.method_list.values()]
-        return methods
+        return self.method_dict
+
 
 
 if __name__ == '__main__':
     plugins = PluginManager('C:\\Users\\Gilad\\PycharmProjects\\Gilad-Gimp\\core\\plugin_manager\\plugins')
     plugins.load_plugins()
-    print(plugins.get_plugins())
+    test = plugins.get_methods()
+    print(test)

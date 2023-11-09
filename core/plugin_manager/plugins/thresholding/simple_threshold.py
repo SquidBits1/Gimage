@@ -1,87 +1,76 @@
 from PIL import Image
 import numpy as np
+from dataclasses import dataclass
 
 
-def conv_to_gs(image):
-    image = np.dot(image[..., 0:3], [0.299, 0.587, 0.114])
-    return image
+@dataclass
+class ImagePlugin:
 
+    @staticmethod
+    def conv_to_gs(image):
+        image = np.dot(image[..., 0:3], [0.299, 0.587, 0.114])
+        return image
 
-def binary_threshold(image, threshold):
-    image = conv_to_gs(image)
-    for cell in np.nditer(image, op_flags=['readwrite']):
-        if cell > threshold:
-            cell[...] = 255
-        else:
-            cell[...] = 0
+    def binary_threshold(self, image, threshold = 127):
+        image = self.conv_to_gs(image)
+        for cell in np.nditer(image, op_flags=['readwrite']):
+            if cell > threshold:
+                cell[...] = 255
+            else:
+                cell[...] = 0
 
-    return image
+        return image
 
+    def inverse_binary_threshold(self, image, threshold = 127):
+        image = self.conv_to_gs(image)
+        for cell in np.nditer(image, op_flags=['readwrite']):
+            if cell < threshold:
+                cell[...] = 255
+            else:
+                cell[...] = 0
 
-def inverse_binary_threshold(image, threshold):
-    image = conv_to_gs(image)
-    for cell in np.nditer(image, op_flags=['readwrite']):
-        if cell < threshold:
-            cell[...] = 255
-        else:
-            cell[...] = 0
+        return image
 
-    return image
+    # each individual colour is checked here
 
+    def halloween(self, image, threshold = 127):
+        copied = np.copy(image)
+        for cell in np.nditer(copied, op_flags=['readwrite']):
+            if cell > threshold:
+                cell[...] = 255
+            else:
+                cell[...] = 0
 
-# each individual colour is checked here
-def halloween(image, threshold):
-    copied = np.copy(image)
-    for cell in np.nditer(copied, op_flags=['readwrite']):
-        if cell > threshold:
-            cell[...] = 255
-        else:
-            cell[...] = 0
+        return copied
 
-    return copied
+    def truncate_threshold(self, image, threshold = 127):
+        image = self.conv_to_gs(image)
+        for cell in np.nditer(image, op_flags=['readwrite']):
+            if cell > threshold:
+                cell[...] = threshold
 
+        return image
 
-def truncate_threshold(image, threshold):
-    image = conv_to_gs(image)
-    for cell in np.nditer(image, op_flags=['readwrite']):
-        if cell > threshold:
-            cell[...] = threshold
+    def threshold_to_zero(self, image, threshold = 127):
+        image = self.conv_to_gs(image)
+        for cell in np.nditer(image, op_flags=['readwrite']):
+            if cell < threshold:
+                cell[...] = 0
 
-    return image
+        return image
 
+    def glitch(self, image, threshold = 127):
+        copied = np.copy(image)
+        for cell in np.nditer(copied, op_flags=['readwrite']):
+            if cell > threshold:
+                cell[...] = 0
 
-def threshold_to_zero(image, threshold):
-    image = conv_to_gs(image)
-    for cell in np.nditer(image, op_flags=['readwrite']):
-        if cell < threshold:
-            cell[...] = 0
+        return copied
 
-    return image
+    def threshold_to_zero_inverse(self, image, threshold = 127):
+        image = self.conv_to_gs(image)
+        for cell in np.nditer(image, op_flags=['readwrite']):
+            if cell > threshold:
+                cell[...] = 0
 
-
-def glitch(image, threshold):
-    copied = np.copy(image)
-    for cell in np.nditer(copied, op_flags=['readwrite']):
-        if cell > threshold:
-            cell[...] = 0
-
-    return copied
-
-
-def threshold_to_zero_inverse(image, threshold):
-    image = conv_to_gs(image)
-    for cell in np.nditer(image, op_flags=['readwrite']):
-        if cell > threshold:
-            cell[...] = 0
-
-    return image
-
-
-if __name__ == '__main__':
-    img = Image.open("castle.jpg")
-    img = np.array(img)
-    # converts image to greyscale
-
-    img = binary_threshold(img, 100)
-    img = Image.fromarray(img).convert('RGB')
-    img.save('threshold.png')
+        return image
