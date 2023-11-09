@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout,
 from PyQt6.QtGui import QAction
 from PIL import Image
 from core.helpers import ImageData
-from core.plugins import plugin_processor
+from core.plugin_manager import plugin_processor
 
 
 class MainWindow(QMainWindow):
