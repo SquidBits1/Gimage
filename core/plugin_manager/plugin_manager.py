@@ -2,7 +2,7 @@ import importlib.util
 import inspect
 import os
 from core.plugin_manager.imageplugin import ImagePlugin
-from core.plugin_manager.factory import Factory
+from core.plugin_manager.plugin_method import PluginMethod
 
 
 class PluginManager(ImagePlugin):
@@ -62,7 +62,7 @@ class PluginManager(ImagePlugin):
                         pass
 
                     if method not in base_class_methods and signature[0] == 'image':
-                        methods[method] = Factory(method_instance)
+                        methods[method] = PluginMethod(method_instance)
                 self.method_dict[plugin_name] = methods
                 self.method_list.append(methods)
 

@@ -10,6 +10,8 @@ class ImagePlugin:
     @staticmethod
     def sort_row(row, sorting_function):
         # sums all the pixel values to find a basic pixel "brightness" value
+        print(row.shape)
+        print(row[:, :4].shape)
         summed = sorting_function(row[:, :4])
         min_index = np.argmin(summed)
 

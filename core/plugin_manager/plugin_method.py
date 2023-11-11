@@ -2,7 +2,7 @@ import inspect
 
 
 # constructs a plugin class for a method
-class Factory:
+class PluginMethod:
 
     def __init__(self, method):
         self.method = method
@@ -16,7 +16,7 @@ class Factory:
         self.image_data = self.argument_dict.pop('image')
 
     def run_function(self):
-        self.image_data = self.parent.image.source_image_data
+        self.image_data = self.parent.image.processed_image_data[-1].copy()
         if self.image_data is None:
             self.parent.current_function = None
             return
@@ -24,9 +24,11 @@ class Factory:
         try:
             self.parent.image.add_image(self.method(self.image_data, *self.argument_dict.values()))
         except Exception as error:
-            print(f'ERROR: {error}')
-            print(f'{self.argument_dict}')
-
+            print(error)
         self.parent.process_image()
+
+
+    def __repr__(self):
+        return self.method.__name__
 
 

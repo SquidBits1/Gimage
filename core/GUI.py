@@ -3,7 +3,7 @@ import os
 from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout, QWidget, QLabel, QMenu
 from PyQt6.QtGui import QAction
 from PIL import Image
-from core.helpers import ImageData
+from core.helpers import image_data
 from core.plugin_manager import plugin_manager
 
 

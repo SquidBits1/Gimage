@@ -5,7 +5,5 @@ from core.plugin_manager.imageplugin import ImagePlugin
 @dataclass
 class ImagePlugin:
 
-
-    @staticmethod
-    def copy(image):
+    def copy(self, image):
         return image.copy()

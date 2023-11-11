@@ -5,7 +5,7 @@ from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 import numpy as np
 from core.GUI import MainWindow
-from core.helpers import helper, ImageData
+from core.helpers import helper, image_data
 
 
 class ProcessWindow(MainWindow):
@@ -23,7 +23,7 @@ class ProcessWindow(MainWindow):
             action.triggered.connect(self.plugin_actions[action].run_function)
 
     def process_image(self):
-        self.pillow_image = Image.fromarray(self.image.processed_image_datas[0]).convert('RGBA')
+        self.pillow_image = Image.fromarray(self.image.processed_image_data[-1]).convert('RGBA')
         qimg = ImageQt(self.pillow_image)
         processed_image = QPixmap.fromImage(qimg)
         processed_image = processed_image.scaled(800, 600, Qt.AspectRatioMode.KeepAspectRatio)
@@ -52,17 +52,15 @@ class ProcessWindow(MainWindow):
         else:
             # Creates image object with image data
 
-            self.image = ImageData.ImageData(source_filename, np.array(Image.open(source_filename)))
+            self.image = image_data.ImageData(source_filename, np.array(Image.open(source_filename)))
             self.image.filetype = filetype
 
             # Shows image on window
-            try:
-                pixmap_image = QPixmap(self.image.source_filename)
-                pixmap_image = pixmap_image.scaled(800, 600, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
-                self.image_label.setPixmap(pixmap_image)
-                self.textbox.setText(f'{self.image}')
-            except Exception as error:
-                print(error)
+            pixmap_image = QPixmap(self.image.source_filename)
+            pixmap_image = pixmap_image.scaled(800, 600, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
+            self.image_label.setPixmap(pixmap_image)
+            self.textbox.setText(f'{self.image}')
+
 
     def save_file(self):
         if not self.pillow_image:
