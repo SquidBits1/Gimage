@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout, QWidget, QLabel, QMenu
-from PyQt6.QtGui import QAction, QIcon
+from PyQt6.QtGui import QAction, QIcon, QFont
 from PIL import Image
 from core.helpers import image_data
 from core.plugin_manager import plugin_manager
@@ -26,7 +26,7 @@ class MainWindow(QMainWindow):
         self.pillow_image: Image.Image | None = None
 
         # Loads in plugin_manager
-        self.plugin_manager = plugin_manager.PluginManager(self.dir+'\\core\\plugin_manager\\plugins')
+        self.plugin_manager = plugin_manager.PluginManager(self.dir + '\\core\\plugin_manager\\plugins')
         self.plugin_manager.load_plugins()
 
         # Menu Bar and actions initialised
@@ -61,10 +61,10 @@ class MainWindow(QMainWindow):
         self._create_labels()
 
         # image bar labels
-        self.image_layout.addWidget(self.textbox)
+        self.top_bar_layout.addWidget(self.textbox)
         self.image_layout.addWidget(self.image_label)
 
-        self.processed_image_layout.addWidget(self.edit_textbox)
+        self.bottom_bar_layout.addWidget(self.edit_textbox)
         self.processed_image_layout.addWidget(self.processed_image_label)
 
     def _create_labels(self):
@@ -73,6 +73,7 @@ class MainWindow(QMainWindow):
 
         self.textbox = QLabel()
         self.edit_textbox = QLabel()
+        self.edit_textbox.setFont(QFont("Helvetica", 20))
 
     # Handles creating menu bar
     # TODO Add icons to menu options
@@ -101,7 +102,6 @@ class MainWindow(QMainWindow):
                     method.parent = self
                     menu.addAction(method_action)
 
-
         # Help Menu
         help_menu = QMenu('&Help', self)
         menu_bar.addMenu(help_menu)
@@ -116,13 +116,6 @@ class MainWindow(QMainWindow):
         self.undo_action = QAction("&Undo", self)
 
         self.about_action = QAction("&About", self)
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':
