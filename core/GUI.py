@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout, QWidget, QLabel, QMenu
-from PyQt6.QtGui import QAction
+from PyQt6.QtGui import QAction, QIcon
 from PIL import Image
 from core.helpers import image_data
 from core.plugin_manager import plugin_manager
@@ -14,7 +14,8 @@ class MainWindow(QMainWindow):
 
         self.dir = os.path.dirname(os.path.dirname(__file__))
         # The title of the window
-        self.setWindowTitle('Gilad GIMP')
+        self.setWindowTitle('Gimage')
+        self.setWindowIcon(QIcon(self.dir + '\\resources\\letter_g.png'))
         self.setGeometry(200, 200, 800, 600)
 
         # stores the image class
