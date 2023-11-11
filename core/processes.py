@@ -6,6 +6,7 @@ from PyQt6.QtCore import Qt
 import numpy as np
 from core.GUI import MainWindow
 from core.helpers import helper, image_data
+from sys import exit
 
 
 class ProcessWindow(MainWindow):
@@ -19,6 +20,7 @@ class ProcessWindow(MainWindow):
         self.save_action.triggered.connect(self.save_file)
 
         self.undo_action.triggered.connect(self.undo_edit)
+        self.exit_action.triggered.connect(exit)
 
         # Connects all the actions to functions
         for action in self.plugin_actions:
@@ -79,5 +81,5 @@ class ProcessWindow(MainWindow):
             self.image.undo_change()
             self.process_image()
         except IndexError as error:
-            self.edit_textbox.setText(str(error))
+            self.edit_textbox.setText(str(error     ))
 
