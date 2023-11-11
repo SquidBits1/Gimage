@@ -18,17 +18,20 @@ class ProcessWindow(MainWindow):
         self.open_action.triggered.connect(self.open_file)
         self.save_action.triggered.connect(self.save_file)
 
+        self.undo_action.triggered.connect(self.undo_edit)
+
         # Connects all the actions to functions
         for action in self.plugin_actions:
             action.triggered.connect(self.plugin_actions[action].run_function)
 
     def process_image(self):
+        # You use this image object later if you save an image
         self.pillow_image = Image.fromarray(self.image.processed_image_data[-1]).convert('RGBA')
         qimg = ImageQt(self.pillow_image)
         processed_image = QPixmap.fromImage(qimg)
         processed_image = processed_image.scaled(800, 600, Qt.AspectRatioMode.KeepAspectRatio)
         self.processed_image_label.setPixmap(processed_image)
-        self.edit_textbox.setText(self.current_function)
+        self.edit_textbox.setText(repr(self.current_function))
 
     # Opens a file and converts it into a pixmap to show a picture with correct aspect ratio
     def open_file(self):
@@ -70,3 +73,11 @@ class ProcessWindow(MainWindow):
         self.pillow_image.save(f'{self.dir}\\Saved Images\\{self.image.no_extension}_edited.png', format='PNG')
 
         self.edit_textbox.setText('Saved Image')
+
+    def undo_edit(self):
+        try:
+            self.image.undo_change()
+            self.process_image()
+        except IndexError as error:
+            self.edit_textbox.setText(str(error))
+

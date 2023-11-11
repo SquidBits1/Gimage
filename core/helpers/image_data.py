@@ -1,8 +1,9 @@
 from collections import deque
 
+
 class ImageData:
 
-    def __init__(self, filename, source_image_data):
+    def __init__(self, filename='No Image Loaded', source_image_data=None):
         self.source_filename = filename
         self.filetype = None
 
@@ -20,6 +21,12 @@ class ImageData:
 
     def add_image(self, image_data):
         self.processed_image_data.append(image_data)
+
+    def undo_change(self):
+        if len(self.processed_image_data) < 2:
+            raise IndexError('Image has not been edited')
+
+        self.processed_image_data.pop()
 
     def __repr__(self):
         return self.no_path

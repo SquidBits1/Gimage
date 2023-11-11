@@ -10,8 +10,6 @@ class ImagePlugin:
     @staticmethod
     def sort_row(row, sorting_function):
         # sums all the pixel values to find a basic pixel "brightness" value
-        print(row.shape)
-        print(row[:, :4].shape)
         summed = sorting_function(row[:, :4])
         min_index = np.argmin(summed)
 
@@ -23,6 +21,8 @@ class ImagePlugin:
         return final_arr
 
     def pixelsort(self, image, rotation=0, sorting_func=sorting_functions.luminance):
+        if len(image.shape) < 3:
+            raise ValueError("Sorry I haven't added greyscale pixelsorting capability yet!")
         # rotates image by value given
         image = np.rot90(image, k=rotation)
         new_array = np.empty_like(image)

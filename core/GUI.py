@@ -18,7 +18,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(200, 200, 800, 600)
 
         # stores the image class
-        self.image: ImageData.ImageData | None = None
+        self.image: image_data.ImageData = image_data.ImageData()
 
         # Function attributes
         self.current_function = None
@@ -89,7 +89,7 @@ class MainWindow(QMainWindow):
         # Edit Menu
         edit_menu = QMenu('&Edit', self)
         menu_bar.addMenu(edit_menu)
-
+        edit_menu.addAction(self.undo_action)
         for manager in self.plugin_manager.manager_list:
             for plugin_name, methods in manager.method_dict.items():
                 menu = QMenu(plugin_name, self)
@@ -112,7 +112,10 @@ class MainWindow(QMainWindow):
         self.save_action = QAction("&Save...", self)
         self.exit_action = QAction("&Exit", self)
 
+        self.undo_action = QAction("&Undo", self)
+
         self.about_action = QAction("&About", self)
+
 
 
 
