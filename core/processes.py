@@ -66,7 +66,6 @@ class ProcessWindow(MainWindow):
             self.image_label.setPixmap(pixmap_image)
             self.textbox.setText(f'{self.image}')
 
-
     def save_file(self):
         if not self.pillow_image:
             self.edit_textbox.setText('Image not edited yet')
@@ -82,4 +81,3 @@ class ProcessWindow(MainWindow):
             self.process_image()
         except IndexError as error:
             self.edit_textbox.setText(str(error))
-
