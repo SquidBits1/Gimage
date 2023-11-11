@@ -81,5 +81,5 @@ class ProcessWindow(MainWindow):
             self.image.undo_change()
             self.process_image()
         except IndexError as error:
-            self.edit_textbox.setText(str(error     ))
+            self.edit_textbox.setText(str(error))
 
