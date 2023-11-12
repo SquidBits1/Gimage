@@ -9,6 +9,11 @@ def luminance(row):
     return np.sum(temp, axis=1)
 
 
+# If image is already gs, it returns the row without doing anything to it
+def do_nothing(row):
+    return row
+
+
 def basic_sum(row):
     return np.sum(row, axis=1)
 
