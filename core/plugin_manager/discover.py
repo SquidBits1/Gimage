@@ -33,3 +33,4 @@ class PluginUtil:
 
         plugin_config = from_dict(data_class=PluginConfig, data=data)
         return plugin_config
+
