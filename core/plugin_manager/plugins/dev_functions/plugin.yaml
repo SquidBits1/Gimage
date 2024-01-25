@@ -1,0 +1,7 @@
+name: "Dev"
+creator: "Gilad"
+runtime:
+  main: "dev.py"
+  button_type: "None"
+description: "A testing dev plugin to test plugins all work!"
+version: "0.0.1"
