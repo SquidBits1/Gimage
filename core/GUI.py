@@ -5,6 +5,7 @@ from PyQt6.QtGui import QAction, QIcon, QFont
 from PIL import Image
 from core.helpers import image_data
 from core.plugin_manager import plugin_manager
+from core.plugin_manager import discover
 
 
 class MainWindow(QMainWindow):
@@ -26,8 +27,7 @@ class MainWindow(QMainWindow):
         self.pillow_image: Image.Image | None = None
 
         # Loads in plugin_manager
-        self.plugin_manager = plugin_manager.PluginManager(self.dir + '\\core\\plugin_manager\\plugins')
-        self.plugin_manager.load_plugins()
+        self._handle_plugins()
 
         # Menu Bar and actions initialised
         self.plugin_actions = dict()
@@ -41,6 +41,9 @@ class MainWindow(QMainWindow):
         widget = QWidget()
         widget.setLayout(self.main_layout)
         self.setCentralWidget(widget)
+
+    def _handle_plugins(self):
+        self.plugin_dict = discover.setup_configuration(discover.discover_plugins())
 
     # Creates layouts
     def _create_layout(self):
@@ -92,15 +95,17 @@ class MainWindow(QMainWindow):
         edit_menu = QMenu('&Edit', self)
         menu_bar.addMenu(edit_menu)
         edit_menu.addAction(self.undo_action)
-        for manager in self.plugin_manager.manager_list:
-            for plugin_name, methods in manager.method_dict.items():
-                menu = QMenu(plugin_name, self)
-                edit_menu.addMenu(menu)
-                for method_name, method in methods.items():
-                    method_action = QAction(method_name, self)
-                    self.plugin_actions[method_action] = method
-                    method.parent = self
-                    menu.addAction(method_action)
+        for package in self.plugin_dict.items():
+            package_name, plugin_list = package
+            menu = QMenu(package_name, self)
+            edit_menu.addMenu(menu)
+            for plugin in plugin_list:
+                plugin_instance = plugin()
+                plugin_action = QAction(plugin_instance.__class__.__name__)
+                self.plugin_actions[plugin_action] = plugin_instance.invoke
+                menu.addAction(plugin_action)
+
+
 
         # Help Menu
         help_menu = QMenu('&Help', self)

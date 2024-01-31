@@ -2,7 +2,7 @@ from core.plugin_manager.plugin_manager import ImagePlugin
 from copy import copy
 
 
-class Dev(ImagePlugin):
+class Copy(ImagePlugin):
 
     def __init__(self):
         super().__init__()

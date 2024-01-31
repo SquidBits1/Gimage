@@ -14,17 +14,21 @@ def discover_plugins():
 
 def setup_configuration(dirs: iter):
     # TODO make it so that the configs variable contains the plugin class and its config
-    configs = []
+    plugins = {}
     for plugin_dir in dirs:
         config = read_configuration(plugin_dir)
-        configs.append(config)
         if config:
             plugin_main = config.runtime.main
             module_target = f'{convert_to_import(plugin_dir.path)}.{plugin_main}'
             module = import_module(module_target)
+            current_dir_plugins = PluginRegistry.plugins.copy()
+            PluginRegistry.plugins.clear()
+            plugins[config.name] = current_dir_plugins
+
         else:
-            print(f"No config for directory {plugin_dir.name}")
-    return configs, PluginRegistry.plugins
+            pass
+            # print(f"No config for directory {plugin_dir.name}")
+    return plugins
 
 def read_configuration(dir: str):
     plugin_path = os.path.join(dir, "plugin.yaml")
@@ -48,6 +52,6 @@ def convert_to_import(path):
     core_index = a.index("core")
     return (".").join(a[core_index:])
 
-
-a, b = setup_configuration(discover_plugins())
-print(b)
+#
+# a = setup_configuration(discover_plugins())
+# print(a)

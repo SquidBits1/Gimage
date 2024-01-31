@@ -18,3 +18,6 @@ class ImagePlugin(metaclass=PluginRegistry):
         :return: a fully processed image
         """
         pass
+
+    def get_name(self):
+        return

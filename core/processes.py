@@ -24,7 +24,7 @@ class ProcessWindow(MainWindow):
 
         # Connects all the actions to functions
         for action in self.plugin_actions:
-            action.triggered.connect(self.plugin_actions[action].run_function)
+            action.triggered.connect(self.plugin_actions[action])
 
     def process_image(self):
         # You use this image object later if you save an image
