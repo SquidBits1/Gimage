@@ -18,7 +18,7 @@ class PluginUtil:
             config = PluginUtil.read_configuration(plugin_dir)
             if config:
                 plugin_main = config.runtime.main
-                module_target = f'{plugin_dir.path}.{plugin_main}'
+                module_target = f'{PluginUtil.convert_to_import(plugin_dir.path)}.{plugin_main}'
                 print(module_target)
                 module = import_module(module_target)
             else:
@@ -43,11 +43,9 @@ class PluginUtil:
     @staticmethod
     def convert_to_import(path="C:\\Users\gilsmi0809\PycharmProjects\Gimage\core\plugin_manager\plugins\dev_functions"):
         a = path.split("\\")
-        print(a)
         core_index = a.index("core")
-        return ("\\").join(a[:core_index]) + "\\" + (".").join(a[core_index:])
+        return (".").join(a[core_index:])
 
 
 
-# PluginUtil.setup_configuration(PluginUtil.discover_plugins())
-
+PluginUtil.setup_configuration(PluginUtil.discover_plugins())
