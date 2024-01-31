@@ -6,7 +6,7 @@ class PluginRegistry(type):
             PluginRegistry.plugins.append(cls)
 
 
-class ImagePlugin:
+class ImagePlugin(metaclass=PluginRegistry):
     def __init__(self):
         ...
 
