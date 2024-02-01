@@ -7,6 +7,6 @@ class Copy(ImagePlugin):
     def __init__(self):
         super().__init__()
 
-    def invoke(self, image, **kwargs):
+    def plugin_function(self, image, **args):
         return copy(image)
 

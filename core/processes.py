@@ -81,3 +81,9 @@ class ProcessWindow(MainWindow):
             self.process_image()
         except IndexError as error:
             self.edit_textbox.setText(str(error))
+
+    def get_current_image(self):
+        return self.image.processed_image_data[-1].copy()
+
+    def add_image(self, image):
+        self.image.add_image(image)
