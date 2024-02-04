@@ -1,5 +1,6 @@
 import sys
-from core import GUI, processes
+from core.GUI import GUI
+from core.GUI import processes
 
 
 def initialise():

@@ -9,7 +9,7 @@ from core.plugin_manager.plugin_manager import PluginRegistry
 def discover_plugins():
     path = os.path.abspath(os.path.dirname(__file__))
 
-    return os.scandir(os.path.join(path, r"plugins"))
+    return os.scandir(os.path.join(path, r"..\plugins"))
 
 
 def setup_configuration(dirs: iter):
@@ -48,7 +48,8 @@ def read_configuration(dir: str):
 
 
 def convert_to_import(path):
-    a = path.split("\\")
+    normalised = os.path.normpath(path)
+    a = normalised.split("\\")
     core_index = a.index("core")
     return (".").join(a[core_index:])
 

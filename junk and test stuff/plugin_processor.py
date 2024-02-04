@@ -1,9 +1,6 @@
-from typing import Callable
-import numpy as np
-
-from core.plugin_manager.plugins import dev_functions
-from core.plugin_manager.plugins.pixel_sorting import pixel_sort
-from core.plugin_manager.plugins.thresholding import simple_threshold
+from core.plugins import dev_functions
+from core.plugins.pixel_sorting import pixel_sort
+from core.plugins.thresholding import simple_threshold
 
 
 class Plugin:
@@ -46,7 +43,7 @@ class PixelSortPlugin(Plugin):
     def __init__(self, function, name):
         super().__init__(function, name)
         self.rotation = 1
-        self.sorting_func = pixel_sort.sorting_functions.luminance
+        self.sorting_func = core.plugins.pixel_sorting.pixel_sort.sorting_functions.luminance
 
     def function_input(self):
         self.parent.image.add_image(self.function(self.image_data, self.rotation, self.sorting_func))

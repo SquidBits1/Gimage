@@ -1,6 +1,5 @@
 import numpy as np
-from dataclasses import dataclass
-from core.plugin_manager.plugins.pixel_sorting import sorting_functions
+from core.plugins.pixel_sorting import sorting_functions
 
 
 def sort_row(row, sorting_function):
