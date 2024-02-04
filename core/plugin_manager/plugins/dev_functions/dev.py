@@ -10,3 +10,11 @@ class Copy(ImagePlugin):
     def plugin_function(self, image, **args):
         return copy(image)
 
+
+class Test(ImagePlugin):
+
+    def __init__(self):
+        super().__init__()
+
+    def plugin_function(self, image, **args):
+        self.state = "This is a test hopefully this works"

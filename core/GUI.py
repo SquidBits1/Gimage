@@ -100,9 +100,14 @@ class MainWindow(QMainWindow):
             menu = QMenu(package_name, self)
             edit_menu.addMenu(menu)
             for plugin in plugin_list:
+                # Creates an instance of the plugin
                 plugin_instance = plugin()
+                # Gets the name of the class
                 plugin_action = QAction(plugin_instance.__class__.__name__)
                 self.plugin_actions[plugin_action] = plugin_instance.invoke
+                # Tells the plugin instance that the GUI is its parent
+                plugin_instance.parent = self
+                # This adds a button to the menu to invoke the plugin
                 menu.addAction(plugin_action)
 
 

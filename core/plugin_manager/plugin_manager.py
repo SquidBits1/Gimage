@@ -11,21 +11,25 @@ class ImagePlugin(metaclass=PluginRegistry):
         self.parent = None
         self.image = None
         self.kwargs = {}
+        self.state: str = ""
 
     def plugin_function(self, image, **args):
         return None
 
-    def invoke(self, parent, **kwargs):
+    def invoke(self, **kwargs):
         """
         Starts the plugin flow:
-        :param image: the image data used
         :param kwargs: possible arguments used
         :return: a fully processed image
         """
-        self.image = parent.get_current_image()
-        self.parent.current_function = None
+        self.image = self.parent.get_current_image()
+        self.parent.current_function = self
         try:
             self.parent.add_image(self.plugin_function(self.image, **self.kwargs))
         except ValueError as error:
-            print(f"Textbox changed: ERROR {error}")
+            self.state = f"Textbox changed: ERROR {error}"
         self.parent.process_image()
+
+    # Uses repr to represent the current state of the Plugin
+    def __repr__(self):
+        return self.state

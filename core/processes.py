@@ -27,12 +27,13 @@ class ProcessWindow(MainWindow):
             action.triggered.connect(self.plugin_actions[action])
 
     def process_image(self):
-        # You use this image object later if you save an image
-        self.pillow_image = Image.fromarray(self.image.processed_image_data[-1]).convert('RGBA')
-        qimg = ImageQt(self.pillow_image)
-        processed_image = QPixmap.fromImage(qimg)
-        processed_image = processed_image.scaled(800, 600, Qt.AspectRatioMode.KeepAspectRatio)
-        self.processed_image_label.setPixmap(processed_image)
+        image_data = self.image.processed_image_data[-1]
+        if image_data is not None:
+            self.pillow_image = Image.fromarray(image_data).convert('RGBA')
+            qimg = ImageQt(self.pillow_image)
+            processed_image = QPixmap.fromImage(qimg)
+            processed_image = processed_image.scaled(800, 600, Qt.AspectRatioMode.KeepAspectRatio)
+            self.processed_image_label.setPixmap(processed_image)
         self.edit_textbox.setText(repr(self.current_function))
 
     # Opens a file and converts it into a pixmap to show a picture with correct aspect ratio

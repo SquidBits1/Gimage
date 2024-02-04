@@ -1,0 +1,7 @@
+name: "Thresholding"
+creator: "Gilad"
+runtime:
+  main: "main"
+  button_type: "TBD"
+description: "Allows you to do perform thresholding algorithms. Have not included all the thresholding just for now"
+version: "0.0.1"
