@@ -1,0 +1,8 @@
+name: "Pixel Sorting"
+creator: "Gilad"
+runtime:
+  main: "main"
+  button_type: "TBD"
+description: "The very first plugin I made (before I even conceived of using plugins lmao). Does what it
+says on the tin."
+version: "0.0.1"
