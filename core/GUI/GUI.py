@@ -3,8 +3,7 @@ import os
 from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout, QWidget, QLabel, QMenu
 from PyQt6.QtGui import QAction, QIcon, QFont
 from PIL import Image
-from core.helpers import image_data
-from core.plugin_manager import plugin_manager
+from core.GUI.helpers import image_data
 from core.plugin_manager import discover
 
 
@@ -13,7 +12,8 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.dir = os.path.dirname(os.path.dirname(__file__))
+        self.dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+        print(self.dir)
         # The title of the window
         self.setWindowTitle('Gimage')
         self.setWindowIcon(QIcon(self.dir + '\\resources\\letter_g.png'))
