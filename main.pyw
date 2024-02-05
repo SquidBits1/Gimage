@@ -6,6 +6,7 @@ from core.GUI import processes
 def initialise():
     app = GUI.QApplication(sys.argv)
     app.setStyle("Fusion")
+
     window = processes.ProcessWindow()
     window.show()
 

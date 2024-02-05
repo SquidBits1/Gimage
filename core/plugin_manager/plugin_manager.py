@@ -22,6 +22,7 @@ class ImagePlugin(metaclass=PluginRegistry):
         :param kwargs: possible arguments used
         :return: a fully processed image
         """
+        self.parent.add_interactor()
         self.image = self.parent.get_current_image()
         self.parent.current_function = self
         try:

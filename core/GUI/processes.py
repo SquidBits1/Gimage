@@ -1,6 +1,6 @@
 from PIL import Image
 from PIL.ImageQt import ImageQt
-from PyQt6.QtWidgets import QFileDialog
+from PyQt6.QtWidgets import QFileDialog, QSlider, QLabel
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 import numpy as np
@@ -13,6 +13,7 @@ class ProcessWindow(MainWindow):
 
     def __init__(self):
         super().__init__()
+        self.result_label = None
         self._connect_actions()
 
     def _connect_actions(self):
@@ -88,3 +89,14 @@ class ProcessWindow(MainWindow):
 
     def add_image(self, image):
         self.image.add_image(image)
+
+    def add_interactor(self, range=(0,150)):
+        slider = QSlider(Qt.Orientation.Horizontal, self)
+        slider.setRange(*range)
+        slider.valueChanged.connect(self.change_label)
+        self.result_label = QLabel("", self)
+        self.top_bar_layout.addWidget(slider)
+        self.top_bar_layout.addWidget(self.result_label)
+
+    def change_label(self, value):
+        self.result_label.setText(f"Current Value: {value}")
