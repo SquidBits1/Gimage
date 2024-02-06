@@ -29,7 +29,9 @@ class ImagePlugin(metaclass=PluginRegistry):
         :param kwargs: possible arguments used
         :return: a fully processed image
         """
-        self.parent.add_options(self.create_option())
+        self.create_option()
+        self.parent.add_options(self.option_widget)
+
 
     def process(self, *args):
         self.image = self.parent.get_current_image()

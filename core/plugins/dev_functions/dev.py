@@ -14,7 +14,7 @@ class Copy(ImagePlugin):
     def create_option(self):
         options = ["Test1: ATTENTION THIS IS A TEST LOL", "This is also a test"]
         self.option_widget = ComboBoxOptions(self, options)
-        return self.option_widget
+
 
 
 class Test(ImagePlugin):

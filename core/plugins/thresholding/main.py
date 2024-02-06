@@ -1,6 +1,6 @@
 from .simple_threshold import binary_threshold, halloween, glitch
 from core.plugin_manager.plugin_manager import ImagePlugin
-from core.GUI.Widgets.configurers import SliderOptions, Options
+from core.GUI.Widgets.configurers import SliderOptions
 
 
 class SimpleThreshold(ImagePlugin):
@@ -10,7 +10,7 @@ class SimpleThreshold(ImagePlugin):
 
     def create_option(self):
         self.option_widget = SliderOptions(self)
-        return self.option_widget
+
 
     def plugin_function(self, image, threshold):
         return binary_threshold(image, threshold)
