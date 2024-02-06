@@ -12,8 +12,8 @@ class SimpleThreshold(ImagePlugin):
         self.option_widget = SliderOptions(self)
         return self.option_widget
 
-    def plugin_function(self, image, *args):
-        return binary_threshold(image)
+    def plugin_function(self, image, threshold):
+        return binary_threshold(image, threshold)
 
 
 class Halloween(ImagePlugin):

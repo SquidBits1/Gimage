@@ -51,7 +51,7 @@ class SliderOptions(Options):
         self.display_button.setStyleSheet("border: 1px solid black;")
         self.interactor_layout.addWidget(self.display_button)
 
-    def create_interactor(self, minimum, maximum, start_value, values = None):
+    def create_interactor(self, minimum, maximum, start_value):
         interactor = QtWidgets.QSlider(Qt.Orientation.Horizontal)
         interactor.setMinimum(minimum)
         interactor.setMaximum(maximum)
@@ -64,6 +64,7 @@ class SliderOptions(Options):
 
     def get_value(self):
         self.value = self.interactor.value()
+        return self.value
 
 
 class ComboBoxOptions(Options):
@@ -74,7 +75,6 @@ class ComboBoxOptions(Options):
         self.interactor: None | QtWidgets.QComboBox = None
         super().__init__(caller, values)
 
-
     def create_interactor(self, values):
         interactor = QtWidgets.QComboBox()
         interactor.addItems(values)
@@ -82,5 +82,4 @@ class ComboBoxOptions(Options):
 
     def get_value(self):
         self.value = self.interactor.currentText()
-
-
+        return self.value

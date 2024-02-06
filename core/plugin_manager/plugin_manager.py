@@ -16,7 +16,7 @@ class ImagePlugin(metaclass=PluginRegistry):
         self.state: str = ""
         self.option_widget = None
 
-    def plugin_function(self, image, *args):
+    def plugin_function(self, *args):
         return None
 
     def create_option(self):
