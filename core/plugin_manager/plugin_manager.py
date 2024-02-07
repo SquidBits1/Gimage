@@ -1,4 +1,5 @@
 from core.GUI.Widgets.options import Options
+from .util.image_data import ImageData
 
 
 class PluginRegistry(type):
@@ -12,6 +13,7 @@ class PluginRegistry(type):
 class ImagePlugin(metaclass=PluginRegistry):
     def __init__(self):
         self.parent = None
+        self.image_data: None | ImageData = None
         self.image = None
         self.state: str = ""
         self.option_widget: None | Options = None
@@ -34,6 +36,13 @@ class ImagePlugin(metaclass=PluginRegistry):
         :param kwargs: possible arguments used
         :return: a fully processed image
         """
+        # gives the plugin access to the image data class
+        self.image_data: ImageData = self.parent.image
+
+        if not self.image_data:
+            self.state = "No image to edit :("
+            return False
+
         # Creates an Options bar widget
         self.create_option()
         # Adds the widget to the Main window
@@ -42,10 +51,10 @@ class ImagePlugin(metaclass=PluginRegistry):
         self.option_widget.connect(self.get_data)
 
     def process(self, *args):
-        self.image = self.parent.get_current_image()
+        self.image = self.image_data.processed_image_data[-1]
         self.parent.current_function = self
         try:
-            self.parent.add_image(self.plugin_function(self.image, *args))
+            self.image_data.add_image(self.plugin_function(self.image, *args))
         except ValueError as error:
             self.state = f"Textbox changed: ERROR {error}"
         self.parent.process_image()

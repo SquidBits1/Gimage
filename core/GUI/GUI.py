@@ -3,8 +3,8 @@ import os
 from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout, QWidget, QLabel, QMenu
 from PyQt6.QtGui import QAction, QIcon, QFont
 from PIL import Image
-from core.GUI.helpers import image_data
 from core.plugin_manager import discover
+from core.plugin_manager.util import image_data
 
 
 class MainWindow(QMainWindow):
@@ -20,7 +20,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(200, 200, 800, 600)
 
         # stores the image class
-        self.image: image_data.ImageData = image_data.ImageData()
+        self.image: None | image_data.ImageData = None
 
         # Function attributes
         self.current_function = None

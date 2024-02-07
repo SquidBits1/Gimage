@@ -5,7 +5,8 @@ from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 import numpy as np
 from core.GUI.GUI import MainWindow
-from core.GUI.helpers import helper, image_data
+from core.GUI.helpers import helper
+from core.plugin_manager.util import image_data
 from sys import exit
 
 
@@ -84,17 +85,10 @@ class ProcessWindow(MainWindow):
         except IndexError as error:
             self.edit_textbox.setText(str(error))
 
-    def get_current_image(self):
-        return self.image.processed_image_data[-1].copy()
-
-    def add_image(self, image):
-        self.image.add_image(image)
-
-
-
     def change_label(self, value):
         self.result_label.setText(f"Current Value: {value}")
 
     # Adds an options layout when needed
     def add_options(self, widget):
         self.top_bar_layout.addWidget(widget)
+
