@@ -5,14 +5,17 @@ from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 import numpy as np
 from core.GUI.GUI import MainWindow
-from core.GUI.helpers import helper, image_data
+from core.GUI.helpers import helper
+from core.plugin_manager.util import image_data
 from sys import exit
+from os import path, mkdir
 
 
 class ProcessWindow(MainWindow):
 
     def __init__(self):
         super().__init__()
+        self.result_label = None
         self._connect_actions()
 
     def _connect_actions(self):
@@ -72,7 +75,12 @@ class ProcessWindow(MainWindow):
             self.edit_textbox.setText('Image not edited yet')
             return
 
-        self.pillow_image.save(f'{self.dir}\\Saved Images\\{self.image.no_extension}_edited.png', format='PNG')
+        saved_path = f'{self.dir}\\Saved Images'
+        # if there is no saved_image path, it creates one
+        if not path.isdir(saved_path):
+            mkdir(saved_path)
+
+        self.pillow_image.save(saved_path+ f"\\{self.image.no_extension}_edited.png", format='PNG')
 
         self.edit_textbox.setText('Saved Image')
 
@@ -83,8 +91,16 @@ class ProcessWindow(MainWindow):
         except IndexError as error:
             self.edit_textbox.setText(str(error))
 
-    def get_current_image(self):
-        return self.image.processed_image_data[-1].copy()
+    def change_label(self, value):
+        self.result_label.setText(f"Current Value: {value}")
 
-    def add_image(self, image):
-        self.image.add_image(image)
+    # Adds an options layout when needed
+    def add_options(self, widget):
+        self.top_bar_layout.addWidget(widget)
+
+    def clear_option(self):
+        # TODO it is more efficient to use a QStackedWindow, but this would mean refactoring how plugins create option-
+        #  -widgets (they would need to check if there is already a widget in the QStackedWindow
+        for i in reversed(range(self.top_bar_layout.count())):
+            self.top_bar_layout.itemAt(i).widget().setParent(None)
+        self.top_bar_layout.addWidget(self.textbox)
