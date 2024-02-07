@@ -9,7 +9,8 @@ class ImageData:
         self.has_image = False
 
         self.source_image_data = source_image_data
-        self.processed_image_data = deque([self.source_image_data], maxlen=2)
+        # Using the deque data structure, images that are before 4 edits get deleted automatically
+        self.processed_image_data = deque([self.source_image_data], maxlen=4)
 
         self.image_height = None
         self.image_width = None

@@ -30,12 +30,13 @@ class ImagePlugin(metaclass=PluginRegistry):
     def create_option(self):
         self.option_widget = Options()
 
-    def invoke(self, **kwargs):
+    def invoke(self):
         """
         Starts the plugin flow:
         :param kwargs: possible arguments used
         :return: a fully processed image
         """
+        self.parent.clear_option()
         # gives the plugin access to the image data class
         self.image_data: ImageData = self.parent.image
 
