@@ -1,4 +1,4 @@
-from core.GUI.Widgets.configurers import Options
+from core.GUI.Widgets.options import Options
 
 
 class PluginRegistry(type):
@@ -14,14 +14,19 @@ class ImagePlugin(metaclass=PluginRegistry):
         self.parent = None
         self.image = None
         self.state: str = ""
-        self.option_widget = None
+        self.option_widget: None | Options = None
 
     def plugin_function(self, *args):
         return None
 
+    def get_data(self):
+        # gets the data from the options bar
+        data = self.option_widget.get_value()
+        # uses this to perform the edit
+        self.process(data)
+
     def create_option(self):
-        self.option_widget = Options(self)
-        return self.option_widget
+        self.option_widget = Options()
 
     def invoke(self, **kwargs):
         """
@@ -29,9 +34,12 @@ class ImagePlugin(metaclass=PluginRegistry):
         :param kwargs: possible arguments used
         :return: a fully processed image
         """
+        # Creates an Options bar widget
         self.create_option()
+        # Adds the widget to the Main window
         self.parent.add_options(self.option_widget)
-
+        # Connects the button press to getting the data from the options bar
+        self.option_widget.connect(self.get_data)
 
     def process(self, *args):
         self.image = self.parent.get_current_image()

@@ -1,6 +1,6 @@
 from core.plugin_manager.plugin_manager import ImagePlugin
 from copy import copy
-from core.GUI.Widgets.configurers import Options, SliderOptions, ComboBoxOptions
+from core.GUI.Widgets.options import Options, SliderOptions, ComboBoxOptions
 
 
 class Copy(ImagePlugin):
@@ -13,7 +13,7 @@ class Copy(ImagePlugin):
 
     def create_option(self):
         options = ["Test1: ATTENTION THIS IS A TEST LOL", "This is also a test"]
-        self.option_widget = ComboBoxOptions(self, options)
+        self.option_widget = ComboBoxOptions(options)
 
 
 

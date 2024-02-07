@@ -4,9 +4,8 @@ from PyQt6.QtCore import Qt
 
 class Options(QtWidgets.QWidget):
 
-    def __init__(self, caller, *args):
+    def __init__(self, *args):
         super().__init__()
-        self.caller = caller
         self.value = None
 
         # Creates a widget to be pressed. Defaults to a ComboBox but can be overridden
@@ -17,13 +16,12 @@ class Options(QtWidgets.QWidget):
         self.interactor_layout.addWidget(self.interactor)
 
         # Creates Accept Button
-        accept_button = QtWidgets.QPushButton(text="Accept")
-        accept_button.setFixedSize(100, 25)
-        accept_button.clicked.connect(self.send_info)
+        self.accept_button = QtWidgets.QPushButton(text="Accept")
+        self.accept_button.setFixedSize(100, 25)
 
         overall = QtWidgets.QVBoxLayout()
         overall.addLayout(self.interactor_layout)
-        overall.addWidget(accept_button)
+        overall.addWidget(self.accept_button)
 
         self.setLayout(overall)
 
@@ -37,15 +35,15 @@ class Options(QtWidgets.QWidget):
         """
         pass
 
-    def send_info(self):
-        self.caller.process(self.get_value())
+    def connect(self, func):
+        self.accept_button.clicked.connect(func)
 
 
 class SliderOptions(Options):
 
-    def __init__(self, caller, minimum=0, maximum=256, start_value=127):
+    def __init__(self, minimum=0, maximum=255, start_value=127):
         self.interactor: None | QtWidgets.QSlider = None
-        super().__init__(caller, minimum, maximum, start_value)
+        super().__init__(minimum, maximum, start_value)
         self.interactor_layout.addWidget(self.interactor)
         self.display_button = QtWidgets.QLabel(str(start_value))
         self.display_button.setStyleSheet("border: 1px solid black;")
@@ -69,11 +67,11 @@ class SliderOptions(Options):
 
 class ComboBoxOptions(Options):
 
-    def __init__(self, caller, values=None):
+    def __init__(self, values=None):
         if values is None:
             values = ["option1", "option2", "option3"]
         self.interactor: None | QtWidgets.QComboBox = None
-        super().__init__(caller, values)
+        super().__init__(values)
 
     def create_interactor(self, values):
         interactor = QtWidgets.QComboBox()
