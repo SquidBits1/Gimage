@@ -95,6 +95,7 @@ class MainWindow(QMainWindow):
         edit_menu = QMenu('&Edit', self)
         menu_bar.addMenu(edit_menu)
         edit_menu.addAction(self.undo_action)
+        edit_menu.addSeparator()
         for package in self.plugin_dict.items():
             package_name, plugin_list = package
             menu = QMenu(package_name, self)

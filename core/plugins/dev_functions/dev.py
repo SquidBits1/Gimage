@@ -16,7 +16,6 @@ class Copy(ImagePlugin):
         self.option_widget = ComboBoxOptions(options)
 
 
-
 class Test(ImagePlugin):
 
     def __init__(self):

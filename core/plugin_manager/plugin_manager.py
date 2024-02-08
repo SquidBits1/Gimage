@@ -25,7 +25,10 @@ class ImagePlugin(metaclass=PluginRegistry):
         # gets the data from the options bar
         data = self.option_widget.get_value()
         # uses this to perform the edit
-        self.process(data)
+        if data:
+            self.process(data)
+        else:
+            self.process()
 
     def create_option(self):
         self.option_widget = Options()
@@ -54,10 +57,7 @@ class ImagePlugin(metaclass=PluginRegistry):
     def process(self, *args):
         self.image = self.image_data.processed_image_data[-1]
         self.parent.current_function = self
-        try:
-            self.image_data.add_image(self.plugin_function(self.image, *args))
-        except ValueError as error:
-            self.state = f"Textbox changed: ERROR {error}"
+        self.image_data.add_image(self.plugin_function(self.image, *args))
         self.parent.process_image()
         self.option_widget.deleteLater()
 
