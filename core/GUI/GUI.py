@@ -104,6 +104,7 @@ class MainWindow(QMainWindow):
                 # Creates an instance of the plugin
                 plugin_instance = plugin()
                 # Gets the name of the class
+                # TODO name plugin_action better
                 plugin_action = QAction(plugin_instance.__class__.__name__)
                 self.plugin_actions[plugin_action] = plugin_instance.invoke
                 # Tells the plugin instance that the GUI is its parent
