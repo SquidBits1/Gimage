@@ -1,9 +1,9 @@
-from core.plugin_manager.plugin_manager import ImagePlugin
+from core.plugin_manager.plugin_manager import AbstractPlugin
 from copy import copy
 from core.GUI.Widgets.options import Options, SliderOptions, ComboBoxOptions
 
 
-class Copy(ImagePlugin):
+class Copy(AbstractPlugin):
 
     def __init__(self):
         super().__init__()
@@ -16,7 +16,7 @@ class Copy(ImagePlugin):
         self.option_widget = ComboBoxOptions(options)
 
 
-class Test(ImagePlugin):
+class Test(AbstractPlugin):
 
     def __init__(self):
         super().__init__()

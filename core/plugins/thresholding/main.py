@@ -1,9 +1,9 @@
 from .simple_threshold import binary_threshold, halloween, glitch
-from core.plugin_manager.plugin_manager import ImagePlugin
+from core.plugin_manager.plugin_manager import AbstractPlugin
 from core.GUI.Widgets.options import SliderOptions
 
 
-class SimpleThreshold(ImagePlugin):
+class SimpleThreshold(AbstractPlugin):
 
     def __init__(self):
         super().__init__()
@@ -15,7 +15,7 @@ class SimpleThreshold(ImagePlugin):
         return binary_threshold(image, threshold)
 
 
-class Halloween(ImagePlugin):
+class Halloween(AbstractPlugin):
 
     def __init__(self):
         super().__init__()
@@ -24,7 +24,7 @@ class Halloween(ImagePlugin):
         return halloween(image)
 
 
-class Glitch(ImagePlugin):
+class Glitch(AbstractPlugin):
 
     def __init__(self):
         super().__init__()

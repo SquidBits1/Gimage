@@ -1,9 +1,9 @@
-from core.plugin_manager.plugin_manager import ImagePlugin
+from core.plugin_manager.plugin_manager import AbstractPlugin
 from core.GUI.Widgets.options import ComboBoxOptions
 from .transform import rotate, flip
 
 
-class Rotate(ImagePlugin):
+class Rotate(AbstractPlugin):
 
     def __init__(self):
         super().__init__()
@@ -16,7 +16,7 @@ class Rotate(ImagePlugin):
         return rotate(image, self.rotation_dict[rotation])
 
 
-class Flip(ImagePlugin):
+class Flip(AbstractPlugin):
 
     def __init__(self):
         super().__init__()

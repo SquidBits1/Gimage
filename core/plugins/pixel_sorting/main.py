@@ -1,9 +1,9 @@
-from core.plugin_manager.plugin_manager import ImagePlugin
+from core.plugin_manager.plugin_manager import AbstractPlugin
 from .pixel_sort import pixelsort
 from core.GUI.Widgets.options import ComboBoxOptions
 
 
-class PixelSort(ImagePlugin):
+class PixelSort(AbstractPlugin):
 
     def __init__(self):
         super().__init__()

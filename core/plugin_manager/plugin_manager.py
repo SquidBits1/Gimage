@@ -6,11 +6,11 @@ class PluginRegistry(type):
     plugins = []
 
     def __init__(cls, name, bases, attr):
-        if name != "ImagePlugin":
+        if name != "AbstractPlugin":
             PluginRegistry.plugins.append(cls)
 
 
-class ImagePlugin(metaclass=PluginRegistry):
+class AbstractPlugin(metaclass=PluginRegistry):
     def __init__(self):
         self.parent = None
         self.image_data: None | ImageData = None
