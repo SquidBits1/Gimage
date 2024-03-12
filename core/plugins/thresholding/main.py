@@ -1,6 +1,6 @@
 from .simple_threshold import binary_threshold, halloween, glitch
 from core.plugin_manager.plugin_manager import AbstractPlugin
-from core.GUI.Widgets.options import SliderOptions
+from core.GUI.widgets.options import SliderOptions
 
 
 class SimpleThreshold(AbstractPlugin):

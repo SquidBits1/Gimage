@@ -1,5 +1,5 @@
 from core.plugin_manager.plugin_manager import AbstractPlugin
-from core.GUI.Widgets.options import ComboBoxOptions
+from core.GUI.widgets.options import ComboBoxOptions
 from .transform import rotate, flip
 
 

@@ -1,4 +1,4 @@
-from core.GUI.Widgets.options import Options
+from core.GUI.widgets.options import Options
 from .util.image_data import ImageData
 
 

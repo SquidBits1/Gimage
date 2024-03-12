@@ -1,6 +1,6 @@
 from core.plugin_manager.plugin_manager import AbstractPlugin
 from copy import copy
-from core.GUI.Widgets.options import Options, SliderOptions, ComboBoxOptions
+from core.GUI.widgets.options import Options, SliderOptions, ComboBoxOptions
 
 
 class Copy(AbstractPlugin):
