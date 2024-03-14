@@ -34,3 +34,4 @@ if __name__ == "__main__":
     b = ImageGUI()
     b.show()
     sys.exit(a.exec())
+ 
