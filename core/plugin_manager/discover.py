@@ -30,6 +30,7 @@ def setup_configuration(dirs: iter):
             # print(f"No config for directory {plugin_dir.name}")
     return plugins
 
+
 def read_configuration(dir: str):
     plugin_path = os.path.join(dir, "plugin.yaml")
     # Checks if a config file exists for the files in the directory

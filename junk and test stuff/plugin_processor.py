@@ -12,7 +12,7 @@ class Plugin:
         self.parent = None
 
     def run_function(self):
-        self.image_data = self.parent.image.source_image_data
+        self.image_data = self.parent.image_data.source_image_data
         # checks to see if image is loaded
         if self.image_data is None:
             self.parent.current_function = None
@@ -22,7 +22,7 @@ class Plugin:
         self.parent.process_image()
 
     def function_input(self):
-        self.parent.image.add_image(self.function(self.image_data))
+        self.parent.image_data.add_image(self.function(self.image_data))
 
     def __repr__(self):
         return self.name
@@ -35,7 +35,7 @@ class ThresholdingPlugin(Plugin):
         self.threshold = 95
 
     def function_input(self):
-        self.parent.image.add_image(self.function(self.image_data, self.threshold))
+        self.parent.image_data.add_image(self.function(self.image_data, self.threshold))
 
 
 class PixelSortPlugin(Plugin):
@@ -46,7 +46,7 @@ class PixelSortPlugin(Plugin):
         self.sorting_func = core.plugins.pixel_sorting.pixel_sort.sorting_functions.luminance
 
     def function_input(self):
-        self.parent.image.add_image(self.function(self.image_data, self.rotation, self.sorting_func))
+        self.parent.image_data.add_image(self.function(self.image_data, self.rotation, self.sorting_func))
 
 
 plugin_list = [

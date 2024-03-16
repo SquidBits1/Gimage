@@ -41,7 +41,7 @@ class AbstractPlugin(metaclass=PluginRegistry):
         """
         self.parent.clear_option()
         # gives the plugin access to the image data class
-        self.image_data: ImageData = self.parent.image
+        self.image_data: ImageData = self.parent.image_data
 
         if not self.image_data:
             self.state = "No image to edit :("

@@ -4,7 +4,7 @@ from core.GUI import GUI
 
 def initialise():
     """
-    A function that initialises the application
+    Initialises the application
     :return:
     """
     # Creates an application object and set's it's style
