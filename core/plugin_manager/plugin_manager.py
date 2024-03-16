@@ -81,7 +81,7 @@ class AbstractPlugin(metaclass=PluginRegistry):
         :return:
         """
         # Gets image to edit
-        self.image = self.image_data.processed_image_data[-1]
+        self.image = self.image_data.image_queue[-1]
         self.parent.current_function = self
         # Performs plugin function
         self.image_data.add_image(self.edit_function(self.image, *args))

@@ -187,7 +187,7 @@ class MainWindow(QMainWindow):
         """
 
         # Gets the image data of the end image
-        current_image_data = self.image_data.processed_image_data[-1]
+        current_image_data = self.image_data.image_queue[-1]
         if current_image_data is not None:
             # Three representations of the image are used here!
             # First a pillow image is created from the image data

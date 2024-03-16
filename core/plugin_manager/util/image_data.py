@@ -18,7 +18,7 @@ class ImageData:
 
         self.source_image_data = source_image_data
         # Using the deque data structure, images that are before 4 edits get deleted automatically
-        self.processed_image_data = deque([self.source_image_data], maxlen=4)
+        self.image_queue = deque([self.source_image_data], maxlen=4)
 
         self.filename = self.source_filepath.split('/')[-1]
         self.extensionless = self.filename.split('.')[0]
@@ -30,17 +30,17 @@ class ImageData:
         :return:
         """
         self.has_edited_image = True
-        self.processed_image_data.append(image_data)
+        self.image_queue.append(image_data)
 
     def undo_change(self):
         """
         Removes item in index [-1] from the processed_image_data
         :return:
         """
-        if len(self.processed_image_data) < 2:
+        if len(self.image_queue) < 2:
             raise IndexError('Image has not been edited')
 
-        self.processed_image_data.pop()
+        self.image_queue.pop()
 
     def __repr__(self):
         """
