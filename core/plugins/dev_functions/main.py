@@ -8,7 +8,7 @@ class Copy(AbstractPlugin):
     def __init__(self):
         super().__init__()
 
-    def plugin_function(self, image, *args):
+    def edit_function(self, image, *args):
         return copy(image)
 
     def create_option(self):
@@ -21,5 +21,5 @@ class Test(AbstractPlugin):
     def __init__(self):
         super().__init__()
 
-    def plugin_function(self, image, *args):
+    def edit_function(self, image, *args):
         self.state = "This is a test hopefully this works"

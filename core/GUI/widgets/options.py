@@ -3,6 +3,9 @@ from PyQt6.QtCore import Qt
 
 
 class Options(QtWidgets.QWidget):
+    """
+    A widget that allows the user to customise the editing functions by picking arguments.
+    """
 
     def __init__(self, *args):
         super().__init__()
@@ -40,6 +43,9 @@ class Options(QtWidgets.QWidget):
 
 
 class SliderOptions(Options):
+    """
+    An options bar with a slider.
+    """
 
     def __init__(self, minimum=0, maximum=255, start_value=127):
         self.interactor: None | QtWidgets.QSlider = None
@@ -66,6 +72,9 @@ class SliderOptions(Options):
 
 
 class ComboBoxOptions(Options):
+    """
+    An options bar with a combo box
+    """
 
     def __init__(self, values=None):
         if values is None:

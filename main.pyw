@@ -17,16 +17,7 @@ def initialise():
 
     # After the window is closed, the program ends
     sys.exit(app.exec())
-    
-
-def main():
-    """
-    Starts the program
-    :return:
-    """
-    initialise()
-    # test
 
 
 if __name__ == '__main__':
-    main()
+    initialise()

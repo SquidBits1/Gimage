@@ -12,7 +12,7 @@ class Rotate(AbstractPlugin):
     def create_option(self):
         self.option_widget = ComboBoxOptions(self.rotation_dict.keys())
 
-    def plugin_function(self, image, rotation):
+    def edit_function(self, image, rotation):
         return rotate(image, self.rotation_dict[rotation])
 
 
@@ -21,5 +21,5 @@ class Flip(AbstractPlugin):
     def __init__(self):
         super().__init__()
 
-    def plugin_function(self, image):
+    def edit_function(self, image):
         return flip(image)

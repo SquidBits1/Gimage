@@ -52,11 +52,11 @@ class PixelSortPlugin(Plugin):
 plugin_list = [
     ThresholdingPlugin(simple_threshold.binary_threshold, 'binary threshold'),
     ThresholdingPlugin(simple_threshold.inverse_binary_threshold, 'inverse binary threshold'),
-    ThresholdingPlugin(simple_threshold.halloween, 'halloween'),
+    ThresholdingPlugin(simple_threshold.deepfry, 'halloween'),
     ThresholdingPlugin(simple_threshold.truncate_threshold, 'truncate threshold'),
     ThresholdingPlugin(simple_threshold.threshold_to_zero, 'threshold to zero'),
     PixelSortPlugin(pixel_sort.ImagePlugin.pixelsort, 'pixel sort'),
-    ThresholdingPlugin(simple_threshold.glitch, 'glitch (experimental)'),
+    ThresholdingPlugin(simple_threshold.deepfry_truncate, 'glitch (experimental)'),
     Plugin(dev_functions.ImagePlugin.copy, 'copy')
 
 ]

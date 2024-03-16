@@ -35,7 +35,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(200, 200, 800, 600)
 
         # Declares the image_data variable
-        self.image_data: None | image_data.ImageData = None
+        self.image_data: None | image_data.ImageData = image_data.ImageData()
 
         # plugin function attributes
         self.current_function = None
@@ -235,7 +235,7 @@ class MainWindow(QMainWindow):
             self.image_data.filetype = filetype
 
             # Creates QPixmap representation of image and displays it on window (as the image on the left)
-            pixmap_image = QPixmap(self.image_data.source_filename)
+            pixmap_image = QPixmap(self.image_data.source_filepath)
             pixmap_image = pixmap_image.scaled(800, 600, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
             self.image_label.setPixmap(pixmap_image)
             # Displays file name above image
@@ -258,7 +258,7 @@ class MainWindow(QMainWindow):
             mkdir(saved_path)
 
         # Uses the pillow representation of the image to save the image
-        self.pillow_image.save(saved_path + f"\\{self.image_data.no_extension}_edited.png", format='PNG')
+        self.pillow_image.save(saved_path + f"\\{self.image_data.extensionless}_edited.png", format='PNG')
 
         self.edit_textbox.setText('Saved Image')
 

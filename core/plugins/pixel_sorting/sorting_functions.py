@@ -2,6 +2,11 @@ import numpy as np
 
 
 def luminance(row):
+    """
+    Calculates luminance of each pixel in a row
+    :param row:
+    :return:
+    """
     temp = np.empty_like(row)
     temp[:, 0] = row[:, 0] * 0.2126
     temp[:, 1] = row[:, 1] * 0.7152

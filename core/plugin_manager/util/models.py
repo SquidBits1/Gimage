@@ -9,6 +9,9 @@ class PluginRuntime:
 
 @dataclass
 class PluginConfig:
+    """
+    Represents the plugin.yaml files as a data class
+    """
     name: str
     creator: str
     runtime: PluginRuntime
