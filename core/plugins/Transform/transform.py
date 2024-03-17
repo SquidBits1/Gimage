@@ -7,3 +7,6 @@ def rotate(image, rotations):
 
 def flip(image):
     return np.fliplr(image)
+
+def copy(image):
+    return image.copy()

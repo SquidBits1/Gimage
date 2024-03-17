@@ -217,7 +217,7 @@ class MainWindow(QMainWindow):
                                                                  "*.cur);;GIF (*.gif);;ICNS (*.icns);;ICO "
                                                                  "(*.ico);;JPEG (*.jpeg);;JPG (*.jpg);;PBM "
                                                                  "(*.pbm);;PGM (*.pgm);;PNG (*.png);;PPM ("
-                                                                 "*.ppm);;SVG (*.svg);;SVGZ (*.svgz);;TGA "
+                                                                 "*.ppm);;TGA "
                                                                  "(*.tga);;TIF (*.tif);;TIFF ("
                                                                  "*.tiff);;WBMP (*.wbmp);;WEBP ("
                                                                  "*.webp);;XBM (*.xbm);;XPM (*.xpm)"

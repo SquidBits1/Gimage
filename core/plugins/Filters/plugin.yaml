@@ -1,7 +1,7 @@
-name: "Dev"
+name: "Filters"
 creator: "Gilad"
 runtime:
   main: "main"
   button_type: "None"
-description: "A testing dev plugin to test plugins all work!"
+description: "A package that provides filters"
 version: "0.0.1"

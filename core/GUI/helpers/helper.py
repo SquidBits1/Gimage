@@ -1,4 +1,4 @@
-image_formats = {'bmp', 'cur', 'gif', 'icns', 'ico', 'jpeg', 'jpg', 'pbm', 'pgb', 'png', 'ppm', 'svg', 'svgz', 'tga',
+image_formats = {'bmp', 'cur', 'gif', 'icns', 'ico', 'jpeg', 'jpg', 'pbm', 'pgb', 'png', 'ppm' 'tga',
                  'tif', 'tiff', 'wbmp', 'webp', 'xbm', 'xpm'
                  }
 

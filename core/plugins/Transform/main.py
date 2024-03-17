@@ -1,6 +1,6 @@
 from core.plugin_manager.plugin_manager import AbstractPlugin
 from core.GUI.widgets.options import ComboBoxOptions
-from .transform import rotate, flip
+from .transform import rotate, flip, copy
 
 
 class Rotate(AbstractPlugin):
@@ -23,3 +23,12 @@ class Flip(AbstractPlugin):
 
     def edit_function(self, image):
         return flip(image)
+
+class Copy(AbstractPlugin):
+
+    def __init__(self):
+        super().__init__()
+
+    def edit_function(self, image):
+        return copy(image)
+
