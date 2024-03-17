@@ -75,7 +75,7 @@ class MainWindow(QMainWindow):
         self.main_layout = QVBoxLayout()
         self.image_bar_layout = QHBoxLayout()
         self.image_layout = QVBoxLayout()
-        self.processed_image_layout = QVBoxLayout()
+        self.edited_image_layout = QVBoxLayout()
         self.top_bar_layout = QHBoxLayout()
         self.bottom_bar_layout = QHBoxLayout()
 
@@ -83,16 +83,18 @@ class MainWindow(QMainWindow):
         self.main_layout.addLayout(self.top_bar_layout)
         self.main_layout.addLayout(self.image_bar_layout)
         self.image_bar_layout.addLayout(self.image_layout)
-        self.image_bar_layout.addLayout(self.processed_image_layout)
+        self.image_bar_layout.addLayout(self.edited_image_layout)
         self.main_layout.addLayout(self.bottom_bar_layout)
         self._create_labels()
 
         # image bar labels
         self.top_bar_layout.addWidget(self.textbox)
+        self.image_layout.addWidget(self.unedited_text)
         self.image_layout.addWidget(self.image_label)
 
         self.bottom_bar_layout.addWidget(self.edit_textbox)
-        self.processed_image_layout.addWidget(self.processed_image_label)
+        self.edited_image_layout.addWidget(self.edited_text)
+        self.edited_image_layout.addWidget(self.edited_image_label)
 
     def _create_labels(self):
         """
@@ -102,9 +104,11 @@ class MainWindow(QMainWindow):
         # This label shows the image before edits and is on the left of the screen
         self.image_label = QLabel()
         # This label shows how the currently edited image looks and is on the right of the screen
-        self.processed_image_label = QLabel()
+        self.edited_image_label = QLabel()
 
         # Creates some text-boxes to show things on screen
+        self.unedited_text = QLabel()
+        self.edited_text = QLabel()
         self.textbox = QLabel()
         self.edit_textbox = QLabel()
         self.edit_textbox.setFont(QFont("Helvetica", 20))
@@ -116,7 +120,6 @@ class MainWindow(QMainWindow):
         The edit dropdown contains the buttons that let the user edit the image.
         :return:
         """
-        # TODO Add icons to menu options
 
         # creates a menu bar
         menu_bar = self.menuBar()
@@ -199,7 +202,7 @@ class MainWindow(QMainWindow):
             # Scales the image
             processed_image = processed_image.scaled(800, 600, Qt.AspectRatioMode.KeepAspectRatio)
             # Shows it on screen
-            self.processed_image_label.setPixmap(processed_image)
+            self.edited_image_label.setPixmap(processed_image)
 
     def open_file(self):
         """
@@ -238,6 +241,9 @@ class MainWindow(QMainWindow):
             pixmap_image = QPixmap(self.image_data.source_filepath)
             pixmap_image = pixmap_image.scaled(800, 600, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
             self.image_label.setPixmap(pixmap_image)
+            self.edited_image_label.setPixmap(pixmap_image)
+            self.unedited_text.setText("Original Image")
+            self.edited_text.setText("Edited Image")
             # Displays file name above image
             self.textbox.setText(f'{self.image_data}')
 
