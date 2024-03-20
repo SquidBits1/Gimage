@@ -1,14 +1,11 @@
 # Gilad Gimp
-A simple photo editor with a simple GUI
+A simple image editor with a simple GUI and extendable plugin system
 
 
-Modules Required:
-- PyQt6
-- Numpy
-- Pillow
+
 
 
 Instructions to run:
-1. Have python and the modules required (use pip to install)
-2. Run main.exe
+1. Have python and install dependencies
+2. Run main.pyw
 3. Have fun!
