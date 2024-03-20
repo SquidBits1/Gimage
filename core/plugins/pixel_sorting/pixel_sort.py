@@ -1,3 +1,8 @@
+"""
+pixel_sorting\pixel_sort.py -
+The functions to pixel sort an image are contained here.
+"""
+
 import numpy as np
 from core.plugins.pixel_sorting import sorting_functions
 

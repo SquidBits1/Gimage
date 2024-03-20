@@ -1,3 +1,8 @@
+"""
+Filters\filters.py -
+This file contains the filter matrices used for the filters plugin packages!
+"""
+
 import numpy as np
 
 sepia_filter = np.array([[.393, .769, .189],

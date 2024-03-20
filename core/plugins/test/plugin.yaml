@@ -1,0 +1,7 @@
+name: "test"
+creator: "Gilad"
+runtime:
+  main: "main"
+  button_type: "None"
+description: "A test package"
+version: "0.0.1"

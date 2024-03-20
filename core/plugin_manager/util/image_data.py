@@ -1,3 +1,9 @@
+"""
+image_data.py -
+This file contains the ImageData class, which contains the image queue. The image queue contains iterations of edited
+images so that edits can be undone.
+"""
+
 from collections import deque
 
 
@@ -15,7 +21,7 @@ class ImageData:
         self.source_filepath = filepath
         self.filetype = None
         self.has_edited_image = False
-        self.maxlength = 4
+        self.maxlength = 8
         self.source_image_data = source_image_data
         # Using the deque data structure, images that are before 4 edits get deleted automatically
         self.image_queue = deque([self.source_image_data], maxlen=self.maxlength)

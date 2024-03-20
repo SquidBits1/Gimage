@@ -1,3 +1,8 @@
+"""
+models.py -
+This file contains the dataclasses which represent the plugin.yaml config file.
+"""
+
 from dataclasses import dataclass
 
 

@@ -1,3 +1,8 @@
+"""
+thresholding\main.py -
+The plugins classes are contained here.
+"""
+
 from .simple_threshold import binary_threshold, deepfry, deepfry_truncate, threshold_to_zero
 from core.plugin_manager.plugin_manager import AbstractPlugin
 from core.GUI.widgets.options import SliderOptions

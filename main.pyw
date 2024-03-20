@@ -1,3 +1,9 @@
+"""
+main.pyw -
+This file is what is run to start the application. It creates an application and MainWindow instantiation
+and shows the window to the user.
+"""
+
 import sys
 from core.GUI import GUI
 

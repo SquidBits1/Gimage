@@ -1,3 +1,8 @@
+"""
+thresholding\simple_threshold.py -
+This code contains the functions that do thresholds on images.
+"""
+
 import numpy as np
 
 

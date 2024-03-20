@@ -1,3 +1,8 @@
+"""
+helper.py -
+This file contains some helpful items for the main window. Mostly stuff to do with image formats.
+"""
+
 image_formats = {'bmp', 'cur', 'gif', 'icns', 'ico', 'jpeg', 'jpg', 'pbm', 'pgb', 'png', 'ppm' 'tga',
                  'tif', 'tiff', 'wbmp', 'webp', 'xbm', 'xpm'
                  }

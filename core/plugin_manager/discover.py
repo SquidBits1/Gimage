@@ -1,3 +1,8 @@
+"""
+discover.py -
+This file contains the code that runs when discovering plugins to be used by the application.
+"""
+
 import os
 import yaml
 from core.plugin_manager.util.models import PluginConfig

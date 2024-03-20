@@ -1,3 +1,9 @@
+"""
+plugin_manager.py -
+This file contains the metaclass PluginRegistry that allows plugins to be registered without an instance being made.
+The AbstractPlugin class is also contained here, which defines how all plugins should "act".
+"""
+
 from core.GUI.widgets.options import Options
 from .util.image_data import ImageData
 

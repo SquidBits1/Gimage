@@ -1,3 +1,8 @@
+"""
+Filters\main.py -
+The plugin classes are contained here.
+"""
+
 from core.plugin_manager.plugin_manager import AbstractPlugin
 from .general_filter import rgb_factors, conv_to_gs
 from .filters import sepia_filter, red_filter, green_filter, blue_filter

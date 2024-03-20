@@ -1,3 +1,9 @@
+"""
+GUI.py -
+This file contains the class MainWindow, which is the widget that is shown the user on running the application.
+Here is where the functionality of the window is defined!
+"""
+
 import sys
 import os
 from PyQt6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QVBoxLayout, QWidget, QLabel, QMenu, QFileDialog
@@ -215,7 +221,7 @@ class MainWindow(QMainWindow):
 
         # Creates file dialog to select a file
         source_filename, file_type = QFileDialog.getOpenFileName(self, "Open Image File",
-                                                                 r"C:\\Users\\Gilad\\Pictures",
+                                                                 r"C:",
                                                                  "All files (*.*);;BMP (*.bmp);;CUR ("
                                                                  "*.cur);;GIF (*.gif);;ICNS (*.icns);;ICO "
                                                                  "(*.ico);;JPEG (*.jpeg);;JPG (*.jpg);;PBM "

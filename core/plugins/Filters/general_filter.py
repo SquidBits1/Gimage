@@ -1,3 +1,8 @@
+"""
+Filters\general_filter -
+This file contains the functions that allow filters to be applied to images.
+"""
+
 import numpy as np
 
 

@@ -1,3 +1,8 @@
+"""
+pixel_sorting\main.py -
+The plugins classes are contained here.
+"""
+
 from core.plugin_manager.plugin_manager import AbstractPlugin
 from .pixel_sort import pixelsort
 from core.GUI.widgets.options import ComboBoxOptions

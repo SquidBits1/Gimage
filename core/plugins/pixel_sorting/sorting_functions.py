@@ -1,3 +1,8 @@
+"""
+pixel_sorting\sorting_functions.py -
+This file contains the functions to convert an array of pixels into an array of sorting paramaters.
+"""
+
 import numpy as np
 
 
