@@ -1,3 +1,8 @@
+"""
+models.py -
+This file contains the dataclasses which represent the plugin.yaml config file.
+"""
+
 from dataclasses import dataclass
 
 
@@ -9,6 +14,9 @@ class PluginRuntime:
 
 @dataclass
 class PluginConfig:
+    """
+    Represents the plugin.yaml files as a data class
+    """
     name: str
     creator: str
     runtime: PluginRuntime

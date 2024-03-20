@@ -1,8 +1,17 @@
+"""
+options.py -
+This file contains the classes Options and it's subclasses. They are widgets that plugins can put on screen to adjust
+arguments to pass to the plugin's functions.
+"""
+
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import Qt
 
 
 class Options(QtWidgets.QWidget):
+    """
+    A widget that allows the user to customise the editing functions by picking arguments.
+    """
 
     def __init__(self, *args):
         super().__init__()
@@ -40,14 +49,18 @@ class Options(QtWidgets.QWidget):
 
 
 class SliderOptions(Options):
+    """
+    An options bar with a slider.
+    """
 
     def __init__(self, minimum=0, maximum=255, start_value=127):
         self.interactor: None | QtWidgets.QSlider = None
         super().__init__(minimum, maximum, start_value)
         self.interactor_layout.addWidget(self.interactor)
-        self.display_button = QtWidgets.QLabel(str(start_value))
-        self.display_button.setStyleSheet("border: 1px solid black;")
-        self.interactor_layout.addWidget(self.display_button)
+        # Creates a label to show the current value
+        self.value_display = QtWidgets.QLabel(str(start_value))
+        self.value_display.setStyleSheet("border: 1px solid black;")
+        self.interactor_layout.addWidget(self.value_display)
 
     def create_interactor(self, minimum, maximum, start_value):
         interactor = QtWidgets.QSlider(Qt.Orientation.Horizontal)
@@ -58,7 +71,7 @@ class SliderOptions(Options):
         return interactor
 
     def show_value(self):
-        self.display_button.setText(str(self.interactor.value()))
+        self.value_display.setText(str(self.interactor.value()))
 
     def get_value(self):
         self.value = self.interactor.value()
@@ -66,6 +79,9 @@ class SliderOptions(Options):
 
 
 class ComboBoxOptions(Options):
+    """
+    An options bar with a combo box
+    """
 
     def __init__(self, values=None):
         if values is None:

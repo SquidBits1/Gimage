@@ -1,6 +1,11 @@
+"""
+Transform\main.py -
+The plugins classes are contained here.
+"""
+
 from core.plugin_manager.plugin_manager import AbstractPlugin
 from core.GUI.widgets.options import ComboBoxOptions
-from .transform import rotate, flip
+from .transform import rotate, flip, copy
 
 
 class Rotate(AbstractPlugin):
@@ -12,7 +17,7 @@ class Rotate(AbstractPlugin):
     def create_option(self):
         self.option_widget = ComboBoxOptions(self.rotation_dict.keys())
 
-    def plugin_function(self, image, rotation):
+    def edit_function(self, image, rotation):
         return rotate(image, self.rotation_dict[rotation])
 
 
@@ -21,5 +26,14 @@ class Flip(AbstractPlugin):
     def __init__(self):
         super().__init__()
 
-    def plugin_function(self, image):
+    def edit_function(self, image):
         return flip(image)
+
+class Copy(AbstractPlugin):
+
+    def __init__(self):
+        super().__init__()
+
+    def edit_function(self, image):
+        return copy(image)
+

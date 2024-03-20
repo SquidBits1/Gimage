@@ -1,0 +1,7 @@
+name: "Filters"
+creator: "Gilad"
+runtime:
+  main: "main"
+  button_type: "None"
+description: "A package that provides filters"
+version: "0.0.1"
